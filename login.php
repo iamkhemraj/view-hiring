@@ -8,23 +8,21 @@
 <body>
   <h1>Wecome To The Hiring Management </h1>
   <fieldset style="width:20%;">
-    <legend>Registeration Form</legend>
-    <form action="http://localhost:8000/api/login" method="post" autocomplete="off">
-      <label for="name">Name</label> </br>
-      <input type="text" name="name" id="name"> </br>
-
+    <legend>Login Form</legend>
+    <form action="http://localhost:8000/api/login" method="post" >
       <label for="email">E-mail</label> </br>
       <input type="email" name="email" id="email"> </br>
 
       <label for="password">Password</label> </br>
       <input type="password" name="password" id="password"> </br>
-
-      <label for="cnfmpwd">Confirm Password</label> </br>
-      <input type="password" name="password_confirmation" id="cnfmpwd"> </br></br>
-
-      <input type="submit" value="sumit"></br> </br>
-      <a href="http://localhost/view-hiring/login.php">return to login</a>
+      <input type="submit" value="sumit">
+     
     </form>
+    <a href="http://localhost:8000/api/profile">Get profile</a>
+    <form action="http://localhost:8000/api/logout" method="post">
+            <input type="submit" value="Logout">
+    </form>
+    
   </fieldset>
 </body>
 </html>
