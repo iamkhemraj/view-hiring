@@ -78,6 +78,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <!-- Latest compiled and minified CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <style>
     label{
       display: block;
@@ -86,29 +91,46 @@
   </style>
 </head>
 <body>
-  <h1>Wecome To The Hiring Management </h1>
-  <fieldset style="width:400px;">
-    <legend>Registeration Form</legend>
-    <form action="<?= $_SERVER['PHP_SELF']; ?>" method="post" autocomplete="off">
-      <label for="name">Name</label> </br>
-      <input type="text" name="name" id="name">
-      <?= isset($errors['name']) ? '<p style="color:#cd2322;margin:0px !important"> '.$errors['name'].'  </p>' : '' ; ?>
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-md-5">
+				<div class="card">
+					<div class="card-header h4 m-0 text-center"> Wecome To The Hiring Management </div>
+					<div class="card-body">
+						<form action="<?= $_SERVER['PHP_SELF']; ?>" method="post" autocomplete="off">
+							<div class="form-group">
+								<label for="name">Name</label> </br>
+								<input type="text" name="name" id="name" class="form-control" >
+								<?= isset($errors['name']) ? '<p style="color:#cd2322;margin:0px !important"> '.$errors['name'].'  </p>' : '' ; ?>
+							</div>
 
-      <label for="email">E-mail</label> </br>
-      <input type="email" name="email" id="email"> 
-      <?= isset($errors['email']) ? '<p style="color:#cd2322;margin:0px !important"> '.$errors['email'].'  </p>' : '' ; ?>
+							<div class="form-group">
+								<label for="email">E-mail</label> 
+								<input type="email" name="email" id="email" class="form-control"> 
+								<?= isset($errors['email']) ? '<p style="color:#cd2322;margin:0px !important"> '.$errors['email'].'  </p>' : '' ; ?>
+							</div>
 
-      <label for="password">Password</label> </br>
-      <input type="password" name="password" id="password"> 
-      <?= isset($errors['password']) ? '<p style="color:#cd2322;margin:0px !important"> '.$errors['password'].'  </p>' : '' ; ?>
+							<div class="form-group">
+								<label for="password">Password</label>
+								<input type="password" name="password" id="password" class="form-control"> 
+								<?= isset($errors['password']) ? '<p style="color:#cd2322;margin:0px !important"> '.$errors['password'].'  </p>' : '' ; ?>
+							</div>
 
-      <label for="cnfmpwd">Confirm Password</label> </br>
-      <input type="password" name="password_confirmation" id="cnfmpwd"> <br>
-      <?= isset($errors['password_confirmation']) ? '<p style="color:#cd2322;margin:0px !important"> '.$errors['password_confirmation'].'  </p>' : '' ; ?><br>
+							<div class="form-group">
+								<label for="cnfmpwd">Confirm Password</label>
+								<input type="password" name="password_confirmation" id="cnfmpwd" class="form-control">
+								<?= isset($errors['password_confirmation']) ? '<p style="color:#cd2322;margin:0px !important"> '.$errors['password_confirmation'].'  </p>' : '' ; ?><br>
+							</div>
 
-      <input type="submit" value="sumit"></br> </br>
-      <a href="http://localhost/view-hiring/login.php">return to login</a>
-    </form>
-  </fieldset>
+							<div class="form-group">
+								<input type="submit" value="sumit" class="btn btn-primary form-control"></br>
+								<a href="http://localhost/view-hiring/login.php">return to login</a>
+							</div>
+						</form>
+				</div>
+			</div>
+		</div>
+		
+	</div>
 </body>
 </html>

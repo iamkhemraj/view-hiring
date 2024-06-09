@@ -79,27 +79,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <title>Login</title>
+    <!-- Latest compiled and minified CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+    label{
+    display: block;
+    width:100%;
+    }
+    </style>
 </head>
 <body>
-	<?php if (!empty($unauthorized)): ?>
-        <div style="color: red;">
-            <?= $unauthorized ?>
-        </div>
-    <?php endif; ?>
-    <h1>Login</h1>
-    <form method="POST" action="login.php">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" >
-        <?= isset($errors['email']) ? '<p style="color:#cd2322;margin:0px !important"> '.$errors['email'].'  </p>' : '' ; ?>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" >
-        <?= isset($errors['password']) ? '<p style="color:#cd2322;margin:0px !important"> '.$errors['password'].'  </p>' : '' ; ?>
-        <br>
-        <button type="submit">Login</button>
-        <div>
-          <p>You have not an account</p> <a href="index.php">Register</a>
-        </div>
-    </form>
+    <div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-md-5">
+				<div class="card">
+					<div class="card-header h4 m-0 text-center"> Login </div>
+					<div class="card-body">
+                        <?php if (!empty($unauthorized)): ?>
+                            <div style="color: red;">
+                                <?= $unauthorized ?>
+                            </div>
+                        <?php endif; ?>
+                        <form method="POST" action="login.php">
+                            
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email" class="form-control">
+                                <?= isset($errors['email']) ? '<p style="color:#cd2322;margin:0px !important"> '.$errors['email'].'  </p>' : '' ; ?>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" id="password" name="password" class="form-control">
+                                <?= isset($errors['password']) ? '<p style="color:#cd2322;margin:0px !important"> '.$errors['password'].'  </p>' : '' ; ?>
+                                
+                            </div>
+
+                            <div class="form-group mt-4">
+                                <button type="submit" class="btn btn-primary form-control">Login</button>
+                                <div class="mt-4">
+                                    You have not an account <a href="index.php">Register</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
