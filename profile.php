@@ -77,6 +77,8 @@ $_SESSION['role'] = $user['role'];
                                     <a href="SuperAdmin/adminRegister.php" class="text-warning d-block">Register admin</a>
                                     <a href="SuperAdmin/userRegister.php" class="text-warning d-block">Register user</a>
                                     <a href="SuperAdmin/userManage.php" class="text-warning d-block">Manage user</a>
+                                    <a href="usersdetails.php" class="text-warning d-block">Users Details</a>
+                                    <a href="SuperAdmin/update.php" class="text-warning d-block">Update user</a>
                                 </th>
                                
                             </tr>
