@@ -134,10 +134,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input type="password" name="password_confirmation" id="cnfmpwd" class="form-control" value="">
                             <?= isset($errors['password_confirmation']) ? '<p style="color:#cd2322;margin:0px !important">' . $errors['password_confirmation'] . '</p>' : ''; ?><br>
                         </div>
-
                         <div class="form-group">
                             <input type="submit" value="Submit" class="btn btn-primary form-control"></br>
-                            <a href="http://localhost/view-hiring/login.php">Return to Login</a>
+                             	<!-- Link to go back to the previous page -->
+                            <a href="javascript:window.history.back();" class="text-secondary">Go to Back </a>
                         </div>
                     </form>
                 </div>
