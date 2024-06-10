@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="row justify-content-center">
             <div class="col-md-5">
                 <div class="card">
-                    <div class="card-header h4 m-0 text-center"> Wecome To The Hiring Management </div>
+                    <div class="card-header h4 m-0 text-center"> Welcome To The Hiring Management </div>
                     <div class="card-body">
                         <form action="<?= $_SERVER['PHP_SELF']; ?>" method="post" autocomplete="off">
                             <div class="form-group">
