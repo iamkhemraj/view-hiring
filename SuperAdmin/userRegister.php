@@ -137,9 +137,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <div class="form-group">
                             <input type="submit" value="Submit" class="btn btn-primary form-control"></br>
-                            <a href="http://localhost/view-hiring/login.php">Return to Login</a>
+                             	<!-- Link to go back to the previous page -->
+                            <a href="javascript:window.history.back();" class="text-secondary">Go to Back </a>
                         </div>
                     </form>
+                  
                 </div>
             </div>
         </div>
