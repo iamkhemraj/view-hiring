@@ -67,7 +67,7 @@ $_SESSION['role'] = $user['role'];
                     <div class="card-body">
                         <div class="profile"> <?php 
                             $profile = isset($user['profile']) ? $user['profile'] : '' ; ?>
-                            <img id="myImg" src="<?= !empty($profile) ? $profile : 'uploads/image.png' ?>" alt="" class="img-thumbnail mb-3">
+                            <img id="myImg" src="<?= !empty($profile) ? $profile : 'uploads/images.png' ?>" alt="" class="img-thumbnail mb-3">
                         </div>
                         <div class="btn-group mb-3" role="group" aria-label="User Actions">
                             <a href="SuperAdmin/update.php" class="btn btn-outline-warning">Edit user</a>
@@ -83,7 +83,8 @@ $_SESSION['role'] = $user['role'];
                                     <a href="SuperAdmin/adminRegister.php" class="text-warning d-block">Register admin</a>
                                     <a href="SuperAdmin/userRegister.php" class="text-warning d-block">Register user</a>
                                     <a href="SuperAdmin/userManage.php" class="text-warning d-block">Manage user</a>
-                                    <a href="usersdetails.php" class="text-warning d-block">Users Details</a>
+                                    <a href="usersdetails.php" class="text-warning d-block"> Assigned User </a>
+                                    <a href="SuperAdmin/usersremove.php" class="text-warning d-block">Users Remove </a>
                                    
                                 </th>
                             </tr>

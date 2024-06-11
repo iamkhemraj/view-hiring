@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result !== false) {
         $response = json_decode($result, true);
         if (isset($response['status'])) {
-            header('Location: /view-hiring/login.php'); // Redirect to login.php
+            header("location:javascript://history.go(-1)");
             exit();
         } else {
             // Handle error response from API if needed
