@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
 
                             <div class="form-group">
-                                <input type="submit" value="submit" class="btn btn-primary form-control"></br>
+                                <input type="submit" value="submit" class="btn btn-warning form-control"></br>
                                 <a href="http://localhost/view-hiring/login.php">return to login</a>
                             </div>
                         </form>

@@ -56,14 +56,21 @@ $_SESSION['role'] = $user['role'];
         width: 100px;
         margin-bottom: 12px;
     }
+    tr.usert_tabs th a {
+        margin: 6px;
+        width: 194px;
+        padding: 6px;
+        text-align: center;
+        text-decoration: none;
+    }
     </style>
 </head>
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header h4 m-0 text-center"> <?= ucfirst($_SESSION['role']) ?> </div>
+                <div class="card bg-dark">
+                    <div class="card-header h4 m-0 text-center text-dark bg-warning"> <?= ucfirst($_SESSION['role']) ?> </div>
                     <div class="card-body">
                         <div class="profile"> <?php 
                             $profile = isset($user['profile']) ? $user['profile'] : '' ; ?>
@@ -73,25 +80,25 @@ $_SESSION['role'] = $user['role'];
                             <a href="SuperAdmin/update.php" class="btn btn-outline-warning">Edit user</a>
                             <a href="logout.php" class="btn btn-outline-danger">Logout</a>
                         </div>
-                        <table class="table table-striped">
+                        <table class="table table-bordered table-dark">
                             <tr>
                                 <th>Dashboard</th> 
                                 <th colspan="7">Profile</th>
                             </tr>
-                            <tr>
+                            <tr class="usert_tabs">
                                 <th rowspan="7">
-                                    <a href="SuperAdmin/adminRegister.php" class="text-warning d-block">Register admin</a>
-                                    <a href="SuperAdmin/userRegister.php" class="text-warning d-block">Register user</a>
-                                    <a href="SuperAdmin/userManage.php" class="text-warning d-block">Manage user</a>
-                                    <a href="usersdetails.php" class="text-warning d-block"> Assigned User </a>
-                                    <a href="SuperAdmin/usersremove.php" class="text-warning d-block">Users Remove </a>
+                                    <a href="SuperAdmin/adminRegister.php" class="d-block btn btn-outline-warning">Register admin</a>
+                                    <a href="SuperAdmin/userRegister.php" class=" d-block btn btn-outline-warning">Register user</a>
+                                    <a href="SuperAdmin/userManage.php" class=" d-block btn btn-outline-warning">Manage user</a>
+                                    <a href="usersdetails.php" class=" d-block btn btn-outline-warning"> Assigned User </a>
+                                    <a href="SuperAdmin/usersremove.php" class=" d-block btn btn-outline-warning">Users Remove </a>
                                    
                                 </th>
                             </tr>
-                            <tr>
+                            <tr class="username">
                                 <td>Name: <?= htmlspecialchars($user['name']) ?></td>
                             </tr>
-                            <tr>
+                            <tr class="useremail">
                                 <td>E-mail: <?= htmlspecialchars($user['email']) ?></td>
                             </tr>
                         </table>

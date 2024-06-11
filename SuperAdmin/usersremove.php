@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User Profile</title>
+    <title>User delete</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="lastuser text-danger text-center" >
                       <?= isset($resultData['response']) ? $resultData['response'] : '' ; ?>
                     </div>
-                    <div class="card-header h4 m-0 text-center">Users Details</div>
+                    <div class="card-header h4 m-0 text-center">Users Remove</div>
                     <div class="card-body">
                         <table class="table table-striped text-left">
                             <tr>

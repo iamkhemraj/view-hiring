@@ -151,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					</div> <br>
 					
 					<div class="form-group">
-						<input type="submit" value="Submit" class="btn btn-primary form-control"></br>
+						<input type="submit" value="Submit" class="btn btn-warning form-control"></br>
 							<!-- Link to go back to the previous page -->
 						<a href="javascript:window.history.back();" class="text-secondary">Go to Back </a>
 					</div><br>

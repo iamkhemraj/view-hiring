@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <?= isset($errors['password']) ? '<p style="color:#cd2322;margin:0px !important"> '.$errors['password'].'  </p>' : '' ; ?>
                             </div>
                             <div class="form-group mt-4">
-                                <button type="submit" class="btn btn-primary form-control">Login</button>
+                                <button type="submit" class="btn btn-warning form-control">Login</button>
                                 <div class="mt-4">
                                     You have not an account <a href="index.php">Register</a>
                                 </div>
