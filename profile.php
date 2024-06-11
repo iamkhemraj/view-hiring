@@ -49,8 +49,8 @@ $_SESSION['role'] = $user['role'];
     .profile {
         border: 0px solid;
         width: 102px;
-        border-radius: 100px;
         overflow: hidden;
+        margin-left: 30px;
     }
     img#myImg {
         width: 100px;
@@ -65,14 +65,13 @@ $_SESSION['role'] = $user['role'];
                 <div class="card">
                     <div class="card-header h4 m-0 text-center"> <?= ucfirst($_SESSION['role']) ?> </div>
                     <div class="card-body">
-                        <div class="logout">
-                            <a href="logout.php" class="btn btn-warning">Logout</a>
+                        <div class="profile"> <?php 
+                            $profile = isset($user['profile']) ? $user['profile'] : '' ; ?>
+                            <img id="myImg" src="<?= !empty($profile) ? $profile : 'uploads/image.png' ?>" alt="" class="img-thumbnail mb-3">
                         </div>
-                        <div class="profile">
-                            <?php 
-                                $profile = isset($user['profile']) ? $user['profile'] : '' ;
-                            ?>
-                            <img id="myImg" src="uploads/<?= !empty($profile) ? $profile : 'images.png' ?>" alt="<?= $profile ?>">
+                        <div class="btn-group mb-3" role="group" aria-label="User Actions">
+                            <a href="SuperAdmin/update.php" class="btn btn-outline-warning">Edit user</a>
+                            <a href="logout.php" class="btn btn-outline-danger">Logout</a>
                         </div>
                         <table class="table table-striped">
                             <tr>
@@ -85,7 +84,7 @@ $_SESSION['role'] = $user['role'];
                                     <a href="SuperAdmin/userRegister.php" class="text-warning d-block">Register user</a>
                                     <a href="SuperAdmin/userManage.php" class="text-warning d-block">Manage user</a>
                                     <a href="usersdetails.php" class="text-warning d-block">Users Details</a>
-                                    <a href="SuperAdmin/update.php" class="text-warning d-block">Update user</a>
+                                   
                                 </th>
                             </tr>
                             <tr>
