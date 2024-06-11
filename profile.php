@@ -1,8 +1,15 @@
 <?php
 session_start();
-if (!isset($_SESSION['access_token'])) {
+
+// Check if the user is logged in
+if (!isset($_SESSION['access_token']) && !isset($_COOKIE['access_token'])) {
     header('Location: login.php');
     exit();
+}
+
+// If session token is not set, use the cookie token
+if (!isset($_SESSION['access_token']) && isset($_COOKIE['access_token'])) {
+    $_SESSION['access_token'] = $_COOKIE['access_token'];
 }
 
 $token = $_SESSION['access_token'];
@@ -12,9 +19,10 @@ $options = [
         'method' => 'GET',
     ],
 ];
-$context   = stream_context_create($options);
-$result    = file_get_contents('http://localhost:5000/api/profile', false, $context);
-$user      = json_decode($result, true);
+$context = stream_context_create($options);
+$result = file_get_contents('http://localhost:5000/api/profile', false, $context);
+
+$user = json_decode($result, true);
 
 // Store the user's role in the session
 $_SESSION['role'] = $user['role'];
@@ -27,7 +35,6 @@ $_SESSION['role'] = $user['role'];
     <title>User Profile</title>
     <!-- Latest compiled and minified CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
@@ -62,10 +69,10 @@ $_SESSION['role'] = $user['role'];
                             <a href="logout.php" class="btn btn-warning">Logout</a>
                         </div>
                         <div class="profile">
-                             <?php 
+                            <?php 
                                 $profile = isset($user['profile']) ? $user['profile'] : '' ;
-                              ?>
-                           <img id="myImg" src="uploads/<?= !empty($profile) ? $profile : 'images.png' ?>" alt="<?= $profile ?>">
+                            ?>
+                            <img id="myImg" src="uploads/<?= !empty($profile) ? $profile : 'images.png' ?>" alt="<?= $profile ?>">
                         </div>
                         <table class="table table-striped">
                             <tr>
@@ -80,19 +87,15 @@ $_SESSION['role'] = $user['role'];
                                     <a href="usersdetails.php" class="text-warning d-block">Users Details</a>
                                     <a href="SuperAdmin/update.php" class="text-warning d-block">Update user</a>
                                 </th>
-                               
                             </tr>
                             <tr>
-                                <td>Name: <?= $user['name'] ?></td>
+                                <td>Name: <?= htmlspecialchars($user['name']) ?></td>
                             </tr>
                             <tr>
-                                <td>E-mail: <?= $user['email'] ?></td>
+                                <td>E-mail: <?= htmlspecialchars($user['email']) ?></td>
                             </tr>
                         </table>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</body>
-</html>
+        </div

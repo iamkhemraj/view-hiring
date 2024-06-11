@@ -59,6 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $response = json_decode($result, true);
         if (isset($response['access_token'])) {
             $_SESSION['access_token'] = $response['access_token'];
+            // Set a cookie with the access token
+            setcookie('access_token', $response['access_token'], time() + (86400 * 30), "/"); // 30 days expiration
             header('Location: profile.php');
             exit();
         } else {
@@ -72,7 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -80,44 +81,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <title>Login</title>
     <!-- Latest compiled and minified CSS -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
     label{
-    display: block;
-    width:100%;
+        display: block;
+        width:100%;
     }
     </style>
 </head>
 <body>
     <div class="container mt-5">
-		<div class="row justify-content-center">
-			<div class="col-md-5">
-				<div class="card">
-					<div class="card-header h4 m-0 text-center"> Login </div>
-					<div class="card-body">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-header h4 m-0 text-center"> Login </div>
+                    <div class="card-body">
                         <?php if (!empty($unauthorized)): ?>
                             <div style="color: red;">
                                 <?= $unauthorized ?>
                             </div>
                         <?php endif; ?>
                         <form method="POST" action="login.php">
-                            
                             <div class="form-group">
                                 <label for="email">Email:</label>
                                 <input type="email" id="email" name="email" class="form-control">
                                 <?= isset($errors['email']) ? '<p style="color:#cd2322;margin:0px !important"> '.$errors['email'].'  </p>' : '' ; ?>
-                                
                             </div>
                             <div class="form-group">
                                 <label for="password">Password:</label>
                                 <input type="password" id="password" name="password" class="form-control">
                                 <?= isset($errors['password']) ? '<p style="color:#cd2322;margin:0px !important"> '.$errors['password'].'  </p>' : '' ; ?>
-                                
                             </div>
-
                             <div class="form-group mt-4">
                                 <button type="submit" class="btn btn-primary form-control">Login</button>
                                 <div class="mt-4">
@@ -126,8 +122,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                         </form>
                     </div>
-			</div>
-		</div>
-	</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
