@@ -28,84 +28,72 @@ $email = '';
 $password = '';
 $password_confirmation = '';
 
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'] ?? '';
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
     $password_confirmation = $_POST['password_confirmation'] ?? '';
-   $profile = $_FILES['profile'] ?? '';
-   $pro_name = $_FILES['profile']['name'];
-   $tmp_name = $_FILES['profile']['tmp_name'];
-   $destFile =  'uploads/'.$pro_name;
-   if(!move_uploaded_file( $tmp_name, $destFile )){
-     $errors['profile'] = "No file uploaded in folder";
-   }; 
 
+    // Prepare data for API request
     $data = [
         'name' => $name,
         'email' => $email,
         'password' => $password,
         'password_confirmation' => $password_confirmation,
-        'profile' => $profile,
     ];
 
-    $token = $_SESSION['access_token'];
-    $options = [
-        'http' => [
-            'header' => "Content-type: application/json\r\nAuthorization: Bearer $token\r\n",
-            'method' => 'POST',
-            'content' => json_encode($data),
-            'ignore_errors' => true, // Capture response even if it fails
-        ],
+    // Check if an image is uploaded
+    if (!empty($_FILES['profile']['tmp_name'])) {
+        $profile_tmp_name = $_FILES['profile']['tmp_name'];
+        $profile_original_name = $_FILES['profile']['name'];
+        $profile_mime_type = $_FILES['profile']['type'];
+
+        // Add profile image data to the request
+        $data['profile'] = new CURLFile($profile_tmp_name, $profile_mime_type, $profile_original_name);
+    }
+
+    // Prepare HTTP headers and options
+    $token = $_SESSION['access_token'] ?? '';
+    $headers = [
+        'Authorization: Bearer ' . $token,
     ];
 
-    $context     = stream_context_create($options);
-    $result      = file_get_contents('http://localhost:5000/super_admin/updateProfile', false, $context);
-    $errorsdata  = json_decode($result, true);
+    // Initialize cURL session
+    $curl = curl_init();
 
-    $errorMessages = [];
+    // Set cURL options
+    curl_setopt_array($curl, [
+        CURLOPT_URL => 'http://localhost:5000/super_admin/updateProfile',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => $data,
+        CURLOPT_HTTPHEADER => $headers,
+        CURLOPT_FOLLOWLOCATION => true, // Follow redirects
+        CURLOPT_SSL_VERIFYPEER => false, // For development only, disable SSL verification
+    ]);
 
-    if (isset($errorsdata['name'])) {
-        $errorMessages['name'] = implode(', ', $errorsdata['name']);
-    }
-    if (isset($errorsdata['email'])) {
-        $errorMessages['email'] = implode(', ', $errorsdata['email']);
-    }
-    if (isset($errorsdata['password'])) {
-        $errorMessages['password'] = implode(', ', $errorsdata['password']);
-    }
-    if (isset($errorsdata['password_confirmation'])) {
-        $errorMessages['password_confirmation'] = implode(', ', $errorsdata['password_confirmation']);
-    }
-    if (isset($errorsdata['profile'])) {
-        $errorMessages['profile'] = implode(', ', $errorsdata['profile']);
-    }
+    // Execute cURL request
+    $result = curl_exec($curl);
+    print_r($result);
+    // Close cURL session
+    curl_close($curl);
 
-    foreach ($errorMessages as $key => $value) {
-        $errors[$key] = $value;
-    }
-    // Get the response headers and status code
-    $http_response_header = $http_response_header ?? [];
-    $status_code = null;
-    if (!empty($http_response_header)) {
-        list($protocol, $code, $message) = explode(' ', $http_response_header[0], 3);
-        $status_code = intval($code);
-    }
-
+    // Handle API response
     if ($result !== false) {
         $response = json_decode($result, true);
         if (isset($response['status'])) {
-            header("location:javascript://history.go(-1)");
+            header("Location:javascript://history.go(-1)");
             exit();
-        } 
-    } else {
-        if ($status_code === 401) {
-            $errors['invalid'] = 'Unauthorized. Please check your credentials.';
-        } else {
-            $errors['invalid'] = 'An error occurred. Please try again later.';
         }
+    } else {
+        // Handle API request failure
+        $errors['invalid'] = 'An error occurred. Please try again later.';
     }
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
