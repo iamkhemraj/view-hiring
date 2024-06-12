@@ -82,7 +82,7 @@ $_SESSION['role'] = $user['role'];
                     <div class="card-body">
                         <div class="profile"> <?php 
                             $profile = isset($user['profile']) ? $user['profile'] : '' ; ?>
-                            <img id="myImg" src="<?= !empty($profile) ? 'SuperAdmin/'.$profile : 'uploads/images.png' ?>" alt="" class="img-thumbnail mb-3">
+                            <img id="myImg" src="<?= !empty($profile) ? $profile : 'uploads/images.png' ?>" alt="" class="rounded-circle mb-3">
                         </div>
                         <div class="btn-group mb-3" role="group" aria-label="User Actions">
                             <a href="SuperAdmin/update.php" class="btn btn-outline-primary">Edit user</a>
