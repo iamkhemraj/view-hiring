@@ -8,7 +8,7 @@ if (!isset($_SESSION['access_token'])) {
 }
 
 // Retrieve the access token from the session
-$token = $_SESSION['access_token'];
+ $token = $_SESSION['access_token'];
 
 // Set up the context for the HTTP request to fetch the user profile
 $options = [
@@ -77,18 +77,18 @@ $_SESSION['role'] = $user['role'];
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card bg-dark">
-                    <div class="card-header h4 m-0 text-center text-dark bg-primary"> <?= ucfirst($_SESSION['role']) ?> </div>
+                <div class="card ">
+                    <div class="card-header h4 m-0 text-center text-dark "> <?= ucfirst($_SESSION['role']) ?> </div>
                     <div class="card-body">
                         <div class="profile"> <?php 
                             $profile = isset($user['profile']) ? $user['profile'] : '' ; ?>
-                            <img id="myImg" src="<?= !empty($profile) ? $profile : 'uploads/images.png' ?>" alt="" class="img-thumbnail mb-3">
+                            <img id="myImg" src="<?= !empty($profile) ? 'SuperAdmin/'.$profile : 'uploads/images.png' ?>" alt="" class="img-thumbnail mb-3">
                         </div>
                         <div class="btn-group mb-3" role="group" aria-label="User Actions">
                             <a href="SuperAdmin/update.php" class="btn btn-outline-primary">Edit user</a>
                             <a href="logout.php" class="btn btn-outline-danger">Logout</a>
                         </div>
-                        <table class="table table-bordered table-dark">
+                        <table class="table table-bordered ">
                             <tr>
                                 <th>Dashboard</th> 
                                 <th colspan="7">Profile</th>

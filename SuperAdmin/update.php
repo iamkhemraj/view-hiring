@@ -33,8 +33,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
     $password_confirmation = $_POST['password_confirmation'] ?? '';
-   $profile = $_FILES['profile']['tmp_name']?? '';
-   
+   $profile = $_FILES['profile'] ?? '';
+   $pro_name = $_FILES['profile']['name'];
+   $tmp_name = $_FILES['profile']['tmp_name'];
+   $destFile =  'uploads/'.$pro_name;
+   if(!move_uploaded_file( $tmp_name, $destFile )){
+     $errors['profile'] = "No file uploaded in folder";
+   }; 
+
     $data = [
         'name' => $name,
         'email' => $email,
@@ -56,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $context     = stream_context_create($options);
     $result      = file_get_contents('http://localhost:5000/super_admin/updateProfile', false, $context);
     $errorsdata  = json_decode($result, true);
+
     $errorMessages = [];
 
     if (isset($errorsdata['name'])) {
@@ -77,7 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     foreach ($errorMessages as $key => $value) {
         $errors[$key] = $value;
     }
-
     // Get the response headers and status code
     $http_response_header = $http_response_header ?? [];
     $status_code = null;
@@ -91,9 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($response['status'])) {
             header("location:javascript://history.go(-1)");
             exit();
-        } else {
-            // Handle error response from API if needed
-        }
+        } 
     } else {
         if ($status_code === 401) {
             $errors['invalid'] = 'Unauthorized. Please check your credentials.';
@@ -129,8 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .card-header {
-            background-color: #343a40;
-            color: #fff;
+            color: 000;
             border-radius: 15px 15px 0 0;
             font-weight: bold;
         }
@@ -182,7 +185,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header text-center">Update Profile</div>
+                    <?=  !empty($status) ? '<div class="alert alert-danger">'.$status.'</div>' : ''; ?>
+                    <div class="card-header text-center">Update Profile </div>
                     <div class="card-body">
                       
                         <form action="<?= $_SERVER['PHP_SELF']; ?>" method="post" autocomplete="off" enctype="multipart/form-data">
