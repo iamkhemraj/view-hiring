@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <?= isset($errors['password_confirmation']) ? '<p style="color:#cd2322;margin:0px !important">' . $errors['password_confirmation'] . '</p>' : ''; ?><br>
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="Submit" class="btn btn-warning form-control"></br>
+                            <input type="submit" value="Submit" class="btn btn-primary form-control"></br>
                              	<!-- Link to go back to the previous page -->
                             <a href="javascript:window.history.back();" class="text-secondary">Go to Back </a>
                         </div>

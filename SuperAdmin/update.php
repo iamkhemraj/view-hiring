@@ -213,7 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                            
                             <div class="mb-3">
-                                <input type="submit" value="Update Profile" class="btn btn-warning">
+                                <input type="submit" value="Update Profile" class="btn btn-primary">
                             </div>
                             <div class="text-center">
                                 <a href="javascript:window.history.back();" class="link">Go Back</a>

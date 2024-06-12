@@ -2,17 +2,15 @@
 session_start();
 
 // Check if the user is logged in
-if (!isset($_SESSION['access_token']) && !isset($_COOKIE['access_token'])) {
+if (!isset($_SESSION['access_token'])) {
     header('Location: login.php');
     exit();
 }
 
-// If session token is not set, use the cookie token
-if (!isset($_SESSION['access_token']) && isset($_COOKIE['access_token'])) {
-    $_SESSION['access_token'] = $_COOKIE['access_token'];
-}
-
+// Retrieve the access token from the session
 $token = $_SESSION['access_token'];
+
+// Set up the context for the HTTP request to fetch the user profile
 $options = [
     'http' => [
         'header' => "Authorization: Bearer $token\r\n",
@@ -20,14 +18,24 @@ $options = [
     ],
 ];
 $context = stream_context_create($options);
-$result = file_get_contents('http://localhost:5000/api/profile', false, $context);
+$result = @file_get_contents('http://localhost:5000/api/profile', false, $context);
 
+// Check if the request was successful
+if ($result === FALSE) {
+    // If the token is invalid or expired, redirect to login page
+    header('Location: login.php');
+    exit();
+}
+
+// Decode the response to get the user data
 $user = json_decode($result, true);
 
 // Store the user's role in the session
 $_SESSION['role'] = $user['role'];
 
+// Output or use the user data as needed
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -70,14 +78,14 @@ $_SESSION['role'] = $user['role'];
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card bg-dark">
-                    <div class="card-header h4 m-0 text-center text-dark bg-warning"> <?= ucfirst($_SESSION['role']) ?> </div>
+                    <div class="card-header h4 m-0 text-center text-dark bg-primary"> <?= ucfirst($_SESSION['role']) ?> </div>
                     <div class="card-body">
                         <div class="profile"> <?php 
                             $profile = isset($user['profile']) ? $user['profile'] : '' ; ?>
                             <img id="myImg" src="<?= !empty($profile) ? $profile : 'uploads/images.png' ?>" alt="" class="img-thumbnail mb-3">
                         </div>
                         <div class="btn-group mb-3" role="group" aria-label="User Actions">
-                            <a href="SuperAdmin/update.php" class="btn btn-outline-warning">Edit user</a>
+                            <a href="SuperAdmin/update.php" class="btn btn-outline-primary">Edit user</a>
                             <a href="logout.php" class="btn btn-outline-danger">Logout</a>
                         </div>
                         <table class="table table-bordered table-dark">
@@ -87,11 +95,11 @@ $_SESSION['role'] = $user['role'];
                             </tr>
                             <tr class="usert_tabs">
                                 <th rowspan="7">
-                                    <a href="SuperAdmin/adminRegister.php" class="d-block btn btn-outline-warning">Register admin</a>
-                                    <a href="SuperAdmin/userRegister.php" class=" d-block btn btn-outline-warning">Register user</a>
-                                    <a href="SuperAdmin/userManage.php" class=" d-block btn btn-outline-warning">Manage user</a>
-                                    <a href="usersdetails.php" class=" d-block btn btn-outline-warning"> Assigned User </a>
-                                    <a href="SuperAdmin/usersremove.php" class=" d-block btn btn-outline-warning">Users Remove </a>
+                                    <a href="SuperAdmin/adminRegister.php" class="d-block btn btn-outline-primary">Register admin</a>
+                                    <a href="SuperAdmin/userRegister.php" class=" d-block btn btn-outline-primary">Register user</a>
+                                    <a href="SuperAdmin/userManage.php" class=" d-block btn btn-outline-primary">Manage user</a>
+                                    <a href="usersdetails.php" class=" d-block btn btn-outline-primary"> Assigned User </a>
+                                    <a href="SuperAdmin/usersremove.php" class=" d-block btn btn-outline-primary">Users Remove </a>
                                    
                                 </th>
                             </tr>
