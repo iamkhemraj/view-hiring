@@ -85,7 +85,7 @@ $allAssignedUsers = !empty($user) && isset($user['allAssignedUsers']) ? $user['a
                             <?php endif; ?>
                         </table>
                         <div class="text-center" >
-                                <a class="hover-link " style="cursor: pointer;" onclick="navigate()">Go back</a>
+                                <a class="hover-link " style="cursor: pointer;" onclick="navigate()">Go to back</a>
                             </div>
 
                             <script>

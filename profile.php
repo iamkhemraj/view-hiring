@@ -2,18 +2,30 @@
 session_start();
 
 // Check if the user is logged in
-if (!isset($_SESSION['access_token'])) {
+if (!isset($_SESSION['access_token'])  ) {
     header('Location: login.php');
     exit();
 }
 
-$token   = $_SESSION['access_token'];
-$options = ['http' => ['header' => "Authorization: Bearer $token\r\n",'method' => 'GET', ],];
+$token = $_SESSION['access_token'];
+$options = [
+    'http' => [
+        'header' => "Authorization: Bearer $token\r\n",
+        'method' => 'GET',
+    ],
+];
 $context = stream_context_create($options);
-$result  = @file_get_contents('http://localhost:5000/api/profile', false, $context);
-$user    = json_decode($result, true); // decode user data
-$_SESSION['role'] = $user['role'];
+$result = @file_get_contents('http://localhost:5000/api/profile', false, $context);
 
+if ($result === FALSE) {
+    // Assuming the API returns 401 Unauthorized if the token is expired
+    header('Location: login.php');
+    exit();
+}
+
+$user = json_decode($result, true); // decode user data
+
+$_SESSION['role'] = $user['role']; // Store user role in the session
 ?>
 
 <!DOCTYPE html>
@@ -81,9 +93,17 @@ $_SESSION['role'] = $user['role'];
                                     if($userRole != 'admin' && $userRole != 'editor'){?>
                                         <a href="SuperAdmin/adminRegister.php" class="d-block btn btn-outline-primary">Register admin</a>
                                         <a href="SuperAdmin/userManage.php" class="d-block btn btn-outline-primary">Manage user</a><?php
+                                    }elseif($userRole != 'editor'){ ?>
+                                        <a href="SuperAdmin/userRegister.php" class="d-block btn btn-outline-primary">Register user</a>
+                                        <a href="SuperAdmin/usersremove.php" class="d-block btn btn-outline-primary">Users Remove</a> <?php
+                                    }elseif($userRole == 'editor'){ ?>
+
+                                        <a href="editor/uploaddocument.php" class="d-block btn btn-outline-primary">Upload document</a>        
+                                        <a href="editor/showdocument.php" class="d-block btn btn-outline-primary">Show Document</a>        
+                                    
+                                    <?php
+
                                     } ?>
-                                    <a href="SuperAdmin/userRegister.php" class="d-block btn btn-outline-primary">Register user</a>
-                                    <a href="SuperAdmin/usersremove.php" class="d-block btn btn-outline-primary">Users Remove</a> 
                                     <a href="usersdetails.php" class="d-block btn btn-outline-primary">Assigned User</a>        
                                 </th>
                             </tr>

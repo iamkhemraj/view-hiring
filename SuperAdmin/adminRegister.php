@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="form-group">
                             <input type="submit" value="Submit" class="btn btn-primary form-control"></br>
                             <div class="text-center" >
-                                <a class="hover-link " style="cursor: pointer;" onclick="navigate()">Go back</a>
+                                <a class="hover-link " style="cursor: pointer;" onclick="navigate()">Go to back</a>
                             </div>
 
                             <script>

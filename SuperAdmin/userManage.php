@@ -154,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						<input type="submit" value="Submit" class="btn btn-primary form-control"></br>
 							<!-- Link to go back to the previous page -->
                             <div class="text-center" >
-                                <a class="hover-link " style="cursor: pointer;" onclick="navigate()">Go back</a>
+                                <a class="hover-link " style="cursor: pointer;" onclick="navigate()">Go to back</a>
                             </div>
 
                             <script>

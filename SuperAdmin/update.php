@@ -59,6 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $url ='http://localhost:5000/admin/updateProfile';
     }elseif($_SESSION['role'] == 'super admin'){
         $url = 'http://localhost:5000/super_admin/updateProfile';
+    }else{
+        $url = 'http://localhost:5000/user/updateProfile';
     }
     // Set cURL options
     curl_setopt_array($curl, [
@@ -223,7 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <input type="submit" value="Update Profile" class="btn btn-primary">
                             </div>
                             <div class="text-center" >
-                                <a class="hover-link " style="cursor: pointer;" onclick="navigate()">Go back</a>
+                                <a class="hover-link " style="cursor: pointer;" onclick="navigate()">Go to back</a>
                             </div>
 
                             <script>

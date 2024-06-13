@@ -47,8 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result !== false) {
             if (isset($response['access_token'])) {
                 $_SESSION['access_token'] = $response['access_token'];
-                // Optionally set a cookie with the access token
-                // setcookie('access_token', $response['access_token'], time() + (86400 * 30), "/"); // 30 days expiration
+                setcookie('access_token', $response['access_token'], time() + (86400 * 30), "/"); // 30 days expiration
                 header('Location: profile.php');
                 exit();
             } else {
