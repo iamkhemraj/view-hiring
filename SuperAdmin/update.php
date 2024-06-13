@@ -1,6 +1,7 @@
 <?php
 session_start();
 $errors = [];
+$success_message = '';
 
 // Check if the super admin user is logged in
 if (!isset($_SESSION['access_token']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'super admin') {
@@ -16,19 +17,15 @@ $options = [
     ],
 ];
 $context = stream_context_create($options);
-$result  = file_get_contents('http://localhost:5000/super_admin/getAllUserData', false, $context);
-$userdetails    = json_decode($result, true);
+$result = file_get_contents('http://localhost:5000/super_admin/getAllUserData', false, $context);
+$userdetails = json_decode($result, true);
+$userdata = !empty($userdetails) ? ($userdetails['userdata'][0] ?? '') : '';
 
-if(!empty($userdetails)){     
-	$userdata  =  isset($userdetails['userdata'][0]) ? $userdetails['userdata'][0] : '';
-};
 // Initialize variables for form fields
 $name = '';
 $email = '';
 $password = '';
 $password_confirmation = '';
-
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'] ?? '';
@@ -49,16 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $profile_tmp_name = $_FILES['profile']['tmp_name'];
         $profile_original_name = $_FILES['profile']['name'];
         $profile_mime_type = $_FILES['profile']['type'];
-
-        // Add profile image data to the request
         $data['profile'] = new CURLFile($profile_tmp_name, $profile_mime_type, $profile_original_name);
     }
 
     // Prepare HTTP headers and options
     $token = $_SESSION['access_token'] ?? '';
-    $headers = [
-        'Authorization: Bearer ' . $token,
-    ];
+    $headers = ['Authorization: Bearer ' . $token];
 
     // Initialize cURL session
     $curl = curl_init();
@@ -76,24 +69,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Execute cURL request
     $result = curl_exec($curl);
-    print_r($result);
-    // Close cURL session
     curl_close($curl);
 
     // Handle API response
     if ($result !== false) {
-        $response = json_decode($result, true);
-        if (isset($response['status'])) {
-            header("Location:javascript://history.go(-1)");
-            exit();
+        $errorsdata = json_decode($result, true);
+
+        $errorMessages = [];
+
+        if (isset($errorsdata['status']) && $errorsdata['status'] != '') {
+            $success_message = 'Profile updated successfully!';
+        } else {
+            if (isset($errorsdata['name'])) {
+                $errorMessages['name'] = implode(', ', $errorsdata['name']);
+            }
+            if (isset($errorsdata['email'])) {
+                $errorMessages['email'] = implode(', ', $errorsdata['email']);
+            }
+            if (isset($errorsdata['password'])) {
+                $errorMessages['password'] = implode(', ', $errorsdata['password']);
+            }
+            if (isset($errorsdata['password_confirmation'])) {
+                $errorMessages['password_confirmation'] = implode(', ', $errorsdata['password_confirmation']);
+            }
+            if (isset($errorsdata['profile'])) {
+                $errorMessages['profile'] = implode(', ', $errorsdata['profile']);
+            }
+
+            foreach ($errorMessages as $key => $value) {
+                $errors[$key] = $value;
+            }
         }
     } else {
         // Handle API request failure
         $errors['invalid'] = 'An error occurred. Please try again later.';
     }
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -173,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
-                    <?=  !empty($status) ? '<div class="alert alert-danger">'.$status.'</div>' : ''; ?>
+                <?= !empty($success_message) ? '<div class="alert alert-success">' . $success_message . '</div>' : ''; ?>
                     <div class="card-header text-center">Update Profile </div>
                     <div class="card-body">
                       
@@ -207,9 +218,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="mb-3">
                                 <input type="submit" value="Update Profile" class="btn btn-primary">
                             </div>
-                            <div class="text-center">
-                                <a href="javascript:window.history.back();" class="link">Go Back</a>
+                            <div class="text-center" >
+                                <a class="hover-link " style="cursor: pointer;" onclick="navigate()">Go back</a>
                             </div>
+
+                            <script>
+                                function navigate() {
+                                    window.location.href = 'http://localhost/view-hiring/profile.php';
+                                }
+                            </script>
                         </form>
                     </div>
                 </div>
