@@ -107,7 +107,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <small class="text-danger"><?php echo htmlspecialchars($errors['password']); ?></small>
                             <?php endif; ?>
                         </div>
-                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="submit" class="btn btn-primary">Login</button><br>
+                        If you don't have any account <a href="index.php">Register</a>
                     </form>
                 </div>
             </div>
