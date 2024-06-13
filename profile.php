@@ -90,20 +90,30 @@ $_SESSION['role'] = $user['role']; // Store user role in the session
                             </tr>
                             <tr class="usert_tabs">
                                 <th rowspan="7"><?php
-                                    if($userRole != 'admin' && $userRole != 'editor'){?>
-                                        <a href="SuperAdmin/adminRegister.php" class="d-block btn btn-outline-primary">Register admin</a>
-                                        <a href="SuperAdmin/userManage.php" class="d-block btn btn-outline-primary">Manage user</a><?php
-                                    }elseif($userRole != 'editor'){ ?>
-                                        <a href="SuperAdmin/userRegister.php" class="d-block btn btn-outline-primary">Register user</a>
-                                        <a href="SuperAdmin/usersremove.php" class="d-block btn btn-outline-primary">Users Remove</a> <?php
-                                    }elseif($userRole == 'editor'){ ?>
-
-                                        <a href="editor/uploaddocument.php" class="d-block btn btn-outline-primary">Upload document</a>        
-                                        <a href="editor/showdocument.php" class="d-block btn btn-outline-primary">Show Document</a>        
-                                    
-                                    <?php
-
-                                    } ?>
+                                   switch ($userRole) {
+                                       case 'admin':
+                                           ?>
+                                           <a href="SuperAdmin/userRegister.php" class="d-block btn btn-outline-primary">Register user</a>
+                                           <a href="SuperAdmin/usersremove.php" class="d-block btn btn-outline-primary">Users Remove</a>
+                                           <?php
+                                           break;
+                                   
+                                       case 'editor':
+                                           ?>
+                                           <a href="editor/uploaddocument.php" class="d-block btn btn-outline-primary">Upload document</a>
+                                           <a href="editor/showdocument.php" class="d-block btn btn-outline-primary">Show Document</a>
+                                           <?php
+                                           break;
+                                   
+                                       default:
+                                           ?>
+                                           <a href="SuperAdmin/adminRegister.php" class="d-block btn btn-outline-primary">Register admin</a>
+                                           <a href="SuperAdmin/userManage.php" class="d-block btn btn-outline-primary">Manage user</a>
+                                           <a href="SuperAdmin/userRegister.php" class="d-block btn btn-outline-primary">Register user</a>
+                                           <a href="SuperAdmin/usersremove.php" class="d-block btn btn-outline-primary">Users Remove</a>
+                                           <?php
+                                           break;
+                                   }?>
                                     <a href="usersdetails.php" class="d-block btn btn-outline-primary">Assigned User</a>        
                                 </th>
                             </tr>
