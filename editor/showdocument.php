@@ -74,7 +74,7 @@ $documentData = isset($userDatas['response']) ? $userDatas['response'] : '';
 			}
 		}else{ ?>
 			<div class="card " style="display:grid; place-content:center;" >
-				<h2>No Docuemnt Found!</h2>
+				<h2>No Document Found!</h2>
 				<div class="text-center" >
 					<a class="hover-link " style="cursor: pointer;" onclick="navigate()">Go to back</a>
 				</div>
