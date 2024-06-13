@@ -5,6 +5,7 @@ if (!isset($_SESSION['access_token'])) {
     exit();
 }
 
+
 $token = $_SESSION['access_token'];
 $options = [
     'http' => [
@@ -12,10 +13,9 @@ $options = [
         'method' => 'GET',
     ],
 ];
-$context = stream_context_create($options);
-$result = file_get_contents('http://localhost:5000/assigned-users', false, $context);
-$user = json_decode($result, true);
-
+$context  = stream_context_create($options);
+$result   = file_get_contents('http://localhost:5000/assigned-users', false, $context);
+$user     = json_decode($result, true);
 $allAssignedUsers = !empty($user) && isset($user['allAssignedUsers']) ? $user['allAssignedUsers'] : [];
 ?>
 
@@ -67,13 +67,13 @@ $allAssignedUsers = !empty($user) && isset($user['allAssignedUsers']) ? $user['a
                                         <td>
                                             <?php 
                                             $user = isset($allAssignedUser['user']) ? $allAssignedUser['user'] : '';
-                                            echo isset($user['name']) ? $user['name'] : '';
+                                            echo isset($user['name']) ? htmlspecialchars($user['name']) : '';
                                             ?>
                                         </td>
                                         <td>
                                             <?php 
                                             $admin = isset($allAssignedUser['admin']) ? $allAssignedUser['admin'] : '';
-                                            echo isset($admin['name']) ? $admin['name'] : '';
+                                            echo isset($admin['name']) ? htmlspecialchars($admin['name']) : '';
                                             ?>
                                         </td>
                                     </tr>
@@ -81,12 +81,10 @@ $allAssignedUsers = !empty($user) && isset($user['allAssignedUsers']) ? $user['a
                             <?php else: ?>
                                 <tr>
                                     <td colspan="2">No users assigned</td>
-									
                                 </tr>
                             <?php endif; ?>
-							
                         </table>
-						<a href="javascript:window.history.back();" class="text-secondary">Go to Back </a>
+                        <a href="javascript:window.history.back();" class="text-secondary">Go to Back</a>
                     </div>
                 </div>
             </div>
