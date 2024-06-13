@@ -62,6 +62,7 @@ $_SESSION['role'] = $user['role'];
     }
     img#myImg {
         width: 100px;
+        height: 90px;
         margin-bottom: 12px;
     }
     tr.usert_tabs th a {
@@ -81,7 +82,10 @@ $_SESSION['role'] = $user['role'];
                     <div class="card-header h4 m-0 text-center text-dark "> <?= ucfirst($_SESSION['role']) ?> </div>
                     <div class="card-body">
                         <div class="profile"> <?php 
-                            $profile = isset($user['profile']) ? $user['profile'] : '' ; ?>
+                            $profile = isset($user['profile']) ? $user['profile'] : '' ; 
+                            $userRole = isset($user['role']) ? $user['role'] : '' ; 
+                            
+                            ?>
                             <img id="myImg" src="<?= !empty($profile) ? $profile : 'uploads/images.png' ?>" alt="" class="rounded-circle mb-3">
                         </div>
                         <div class="btn-group mb-3" role="group" aria-label="User Actions">
@@ -94,13 +98,14 @@ $_SESSION['role'] = $user['role'];
                                 <th colspan="7">Profile</th>
                             </tr>
                             <tr class="usert_tabs">
-                                <th rowspan="7">
-                                    <a href="SuperAdmin/adminRegister.php" class="d-block btn btn-outline-primary">Register admin</a>
-                                    <a href="SuperAdmin/userRegister.php" class=" d-block btn btn-outline-primary">Register user</a>
-                                    <a href="SuperAdmin/userManage.php" class=" d-block btn btn-outline-primary">Manage user</a>
-                                    <a href="usersdetails.php" class=" d-block btn btn-outline-primary"> Assigned User </a>
-                                    <a href="SuperAdmin/usersremove.php" class=" d-block btn btn-outline-primary">Users Remove </a>
-                                   
+                                <th rowspan="7"><?php
+                                    if($userRole != 'admin' && $userRole != 'editor'){?>
+                                        <a href="SuperAdmin/adminRegister.php" class="d-block btn btn-outline-primary">Register admin</a>
+                                        <a href="SuperAdmin/userManage.php" class="d-block btn btn-outline-primary">Manage user</a><?php
+                                    } ?>
+                                    <a href="SuperAdmin/userRegister.php" class="d-block btn btn-outline-primary">Register user</a>
+                                    <a href="SuperAdmin/usersremove.php" class="d-block btn btn-outline-primary">Users Remove</a> 
+                                    <a href="usersdetails.php" class="d-block btn btn-outline-primary">Assigned User</a>        
                                 </th>
                             </tr>
                             <tr class="username">
