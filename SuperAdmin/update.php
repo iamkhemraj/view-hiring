@@ -4,7 +4,7 @@ $errors = [];
 $success_message = '';
 
 // Check if the super admin user is logged in
-if (!isset($_SESSION['access_token']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'super admin') {
+if (!isset($_SESSION['access_token'])) {
     header('Location: /view-hiring/profile.php'); // Redirect to the profile page
     exit();
 }
@@ -55,10 +55,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Initialize cURL session
     $curl = curl_init();
-
+    if($_SESSION['role'] == 'admin'){
+        $url ='http://localhost:5000/admin/updateProfile';
+    }elseif($_SESSION['role'] == 'super admin'){
+        $url = 'http://localhost:5000/super_admin/updateProfile';
+    }
     // Set cURL options
     curl_setopt_array($curl, [
-        CURLOPT_URL => 'http://localhost:5000/super_admin/updateProfile',
+        CURLOPT_URL =>  $url,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POST => true,
         CURLOPT_POSTFIELDS => $data,

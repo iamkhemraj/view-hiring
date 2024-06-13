@@ -153,7 +153,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					<div class="form-group">
 						<input type="submit" value="Submit" class="btn btn-primary form-control"></br>
 							<!-- Link to go back to the previous page -->
-						<a href="javascript:window.history.back();" class="text-secondary">Go to Back </a>
+                            <div class="text-center" >
+                                <a class="hover-link " style="cursor: pointer;" onclick="navigate()">Go back</a>
+                            </div>
+
+                            <script>
+                                function navigate() {
+                                    window.location.href = 'http://localhost/view-hiring/profile.php';
+                                }
+                            </script>
 					</div><br>
 					<?php if (!empty($message)):  ?>
 					<div style="color: green; margin-top: 7px;">

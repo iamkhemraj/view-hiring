@@ -7,35 +7,14 @@ if (!isset($_SESSION['access_token'])) {
     exit();
 }
 
-// Retrieve the access token from the session
- $token = $_SESSION['access_token'];
-
-// Set up the context for the HTTP request to fetch the user profile
-$options = [
-    'http' => [
-        'header' => "Authorization: Bearer $token\r\n",
-        'method' => 'GET',
-    ],
-];
+$token   = $_SESSION['access_token'];
+$options = ['http' => ['header' => "Authorization: Bearer $token\r\n",'method' => 'GET', ],];
 $context = stream_context_create($options);
-$result = @file_get_contents('http://localhost:5000/api/profile', false, $context);
-
-// Check if the request was successful
-if ($result === FALSE) {
-    // If the token is invalid or expired, redirect to login page
-    header('Location: login.php');
-    exit();
-}
-
-// Decode the response to get the user data
-$user = json_decode($result, true);
-
-// Store the user's role in the session
+$result  = @file_get_contents('http://localhost:5000/api/profile', false, $context);
+$user    = json_decode($result, true); // decode user data
 $_SESSION['role'] = $user['role'];
 
-// Output or use the user data as needed
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -79,7 +58,7 @@ $_SESSION['role'] = $user['role'];
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card ">
-                    <div class="card-header h4 m-0 text-center text-dark "> <?= ucfirst($_SESSION['role']) ?> </div>
+                    <div class="card-header h4 m-0 text-center text-dark "> Welcome To The <?= ucfirst($_SESSION['role']) ?> Dashboard </div>
                     <div class="card-body">
                         <div class="profile"> <?php 
                             $profile = isset($user['profile']) ? $user['profile'] : '' ; 

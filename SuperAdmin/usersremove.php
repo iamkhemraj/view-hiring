@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="col-md-12">
                 <div class="card">
                     <div class="lastuser text-danger text-center" >
-                      <?= isset($resultData['response']) ? $resultData['response'] : '' ; ?>
+                      <?= isset($resultData['response']) ? '<div class="alert alert-danger">'.$resultData['response'].'</div>' : '' ; ?>
                     </div>
                     <div class="card-header h4 m-0 text-center">Users Remove</div>
                     <div class="card-body">
@@ -131,7 +131,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </tr>
                             <?php endif; ?>
                         </table>
-                        <a href="javascript:window.history.back();" class="text-secondary">Go to Back </a>
+                        <div class="text-center" >
+                                <a class="hover-link " style="cursor: pointer;" onclick="navigate()">Go back</a>
+                            </div>
+
+                            <script>
+                                function navigate() {
+                                    window.location.href = 'http://localhost/view-hiring/profile.php';
+                                }
+                            </script>
                     </div>
                 </div>
             </div>

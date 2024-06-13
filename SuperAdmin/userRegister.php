@@ -74,6 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result !== false) {
         $response = json_decode($result, true);
+        $success_message = isset($response['response']) ? $response['response'] : '';
         if (isset($response['status'])) {
             header("location:javascript://history.go(-1)");
             exit();
@@ -112,6 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="card">
+            <?= !empty($success_message) ? '<div class="alert alert-success">' . $success_message . '</div>' : ''; ?>
                 <div class="card-header h4 m-0 text-center">Register User By <?= isset($_SESSION['role']) ? $_SESSION['role']:'';?></div>
                 <div class="card-body">
                     <form action="<?= $_SERVER['PHP_SELF']; ?>" method="post" autocomplete="off">
@@ -142,7 +144,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="form-group">
                             <input type="submit" value="Submit" class="btn btn-primary form-control"></br>
                              	<!-- Link to go back to the previous page -->
-                            <a href="javascript:window.history.back();" class="text-secondary">Go to Back </a>
+                                 <div class="text-center" >
+                                <a class="hover-link " style="cursor: pointer;" onclick="navigate()">Go back</a>
+                            </div>
+
+                            <script>
+                                function navigate() {
+                                    window.location.href = 'http://localhost/view-hiring/profile.php';
+                                }
+                            </script>
                         </div>
                     </form>
                   

@@ -84,7 +84,15 @@ $allAssignedUsers = !empty($user) && isset($user['allAssignedUsers']) ? $user['a
                                 </tr>
                             <?php endif; ?>
                         </table>
-                        <a href="javascript:window.history.back();" class="text-secondary">Go to Back</a>
+                        <div class="text-center" >
+                                <a class="hover-link " style="cursor: pointer;" onclick="navigate()">Go back</a>
+                            </div>
+
+                            <script>
+                                function navigate() {
+                                    window.location.href = 'http://localhost/view-hiring/profile.php';
+                                }
+                            </script>
                     </div>
                 </div>
             </div>
