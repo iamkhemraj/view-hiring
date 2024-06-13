@@ -3,7 +3,7 @@ session_start();
 $errors = [];
 
 // Check if the super admin user is logged in
-if (!isset($_SESSION['access_token']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'super admin') {
+if (!isset($_SESSION['access_token'])) {
     header('Location: /view-hiring/profile.php'); // Redirect to the profile page
     exit();
 }
@@ -38,7 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     $context = stream_context_create($options);
-    $result = file_get_contents('http://localhost:5000/super_admin/user/register', false, $context);
+    if($_SESSION['role'] == 'admin'){
+        $result = file_get_contents('http://localhost:5000/admin/user/create', false, $context);
+    }elseif($_SESSION['role'] == 'super admin'){
+        $result = file_get_contents('http://localhost:5000/super_admin/user/register', false, $context);
+    }
 
     $errorsdata = json_decode($result, true);
     $errorMessages = [];
@@ -108,18 +112,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="card">
-                <div class="card-header h4 m-0 text-center">Register User By Super Admin</div>
+                <div class="card-header h4 m-0 text-center">Register User By <?= isset($_SESSION['role']) ? $_SESSION['role']:'';?></div>
                 <div class="card-body">
                     <form action="<?= $_SERVER['PHP_SELF']; ?>" method="post" autocomplete="off">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" name="name" id="name" class="form-control" value="<?= htmlspecialchars($name); ?>">
+                            <input type="text" name="name" id="name" class="form-control">
                             <?= isset($errors['name']) ? '<p style="color:#cd2322;margin:0px !important">' . $errors['name'] . '</p>' : ''; ?>
                         </div>
 
                         <div class="form-group">
                             <label for="email">E-mail</label>
-                            <input type="email" name="email" id="email" class="form-control" value="<?= htmlspecialchars($email); ?>">
+                            <input type="email" name="email" id="email" class="form-control" >
                             <?= isset($errors['email']) ? '<p style="color:#cd2322;margin:0px !important">' . $errors['email'] . '</p>' : ''; ?>
                         </div>
 

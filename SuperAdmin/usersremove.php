@@ -15,7 +15,11 @@ $options = [
     ],
 ];
 $context = stream_context_create($options);
-$result = file_get_contents('http://localhost:5000/api/showUsers', false, $context);
+if($_SESSION['role']=='admin'){
+    $result = file_get_contents('http://localhost:5000/admin/adminShowUsers', false, $context);
+} elseif ($_SESSION['role'] == 'super admin') {
+    $result = file_get_contents('http://localhost:5000/api/showUsers', false, $context);
+}
 $user = json_decode($result, true);
 
 $allAssignedUsers = !empty($user['showUsers']) ? $user['showUsers'] : [];
@@ -104,13 +108,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <tr>
                                 <th>Sr No.</th>
                                 <th>User Name</th>
+                                <th>User Role</th>
                                 <th>Delete</th>
                             </tr>
                             <?php if (!empty($allAssignedUsers)): ?>
                                 <?php foreach ($allAssignedUsers as $key => $user): ?>
                                     <tr>
                                         <td><?= $key + 1 ?></td>
-                                        <td><?= $user['name'] ?></td>
+                                        <td><?= $user['name']; ?></td>
+                                        <td><?= $user['role']; ?></td>
                                         <td>
                                         <form id="deleteForm_<?= $user['id'] ?>" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                                             <input type="hidden" name="userId" value="<?= $user['id'] ?>">
@@ -121,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="3">No users assigned</td>
+                                    <td colspan="3">No users found</td>
                                 </tr>
                             <?php endif; ?>
                         </table>
