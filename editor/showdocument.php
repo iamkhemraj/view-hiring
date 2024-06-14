@@ -81,7 +81,7 @@ $documentData = isset($userDatas['response']) ? $userDatas['response'] : '';
 				</div>
 				<script>
 					function navigate() {
-						window.location.href = 'http://localhost/view-hiring/profile.php';
+						window.location.href = 'http://localhost/view-hiring/index.php';
 					}
 				</script>
 			</div><?php

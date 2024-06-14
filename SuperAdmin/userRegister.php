@@ -5,7 +5,7 @@ $errors = [];
 
 // Check if the super admin user is logged in
 if (!isset($_SESSION['access_token'])) {
-    header('Location: /view-hiring/profile.php'); // Redirect to the profile page
+    header('Location: /view-hiring/index.php'); // Redirect to the profile page
     exit();
 }
 
@@ -151,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             <script>
                                 function navigate() {
-                                    window.location.href = 'http://localhost/view-hiring/profile.php';
+                                    window.location.href = 'http://localhost/view-hiring/index.php';
                                 }
                             </script>
                         </div>
