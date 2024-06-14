@@ -3,12 +3,13 @@ include("../header.php");
 session_start();
 $errors = [];
 
+// Check if the super admin user is logged in
 if (!isset($_SESSION['access_token'])) {
-    header('Location: login.php');
+    header('Location: /view-hiring/index.php'); // Redirect to the profile page
     exit();
 }
 
-$token = $_SESSION['access_token'];
+echo $token = $_SESSION['access_token'];
 $options = [
     'http' => [
         'header' => "Authorization: Bearer $token\r\n",
@@ -22,15 +23,11 @@ if($_SESSION['role']=='admin'){
     $result = file_get_contents( BASE_URL . '/api/showUsers', false, $context);
 }
 $user = json_decode($result, true);
-
 $allAssignedUsers = !empty($user['showUsers']) ? $user['showUsers'] : [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-
-
     $userId = $_POST['userId'] ?? '';
-    
     $data = [
         'userId' => $userId,
     ];
@@ -66,9 +63,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
 ?>
-
-
 
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -120,7 +116,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </div>
-
 <script>
     function confirmDelete(userId) {
         if (confirm("Are you sure you want to delete this user?")) {
