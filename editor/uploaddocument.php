@@ -1,4 +1,5 @@
 <?php
+include("../global.php");
 session_start();
 $errors = [];
 $success_message = '';

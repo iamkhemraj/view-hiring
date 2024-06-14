@@ -1,6 +1,6 @@
 <?php
-require_once('global.php');
 
+include("../global.php");
 session_start();
 $errors = [];
 
