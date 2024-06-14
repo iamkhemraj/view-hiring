@@ -127,4 +127,7 @@ $_SESSION['role'] = $user['role']; // Store user role in the session
                     </div>
                 </div>
             </div>
-        </div
+        </div>
+    </div>
+</body>
+</html>
