@@ -1,6 +1,6 @@
 
 <?php
-include("../global.php");
+include("../header.php");
 session_start();
 
 if (!isset($_SESSION['access_token']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'super admin') {
@@ -93,25 +93,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Manage </title>
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        label {
-            display: block;
-            width: 100%;
-        }
-    </style>
-</head>
-<body>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-5">
@@ -177,5 +158,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </div>
-</body>
-</html>
+
+<?php
+include("../footer.php");

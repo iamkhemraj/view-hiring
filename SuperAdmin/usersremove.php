@@ -1,5 +1,5 @@
 <?php
-include("../global.php");
+include("../header.php");
 session_start();
 $errors = [];
 
@@ -68,94 +68,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>User delete</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-    label {
-        display: block;
-        width: 100%;
-    }
-    .logout {
-        text-align: right;
-        margin: 10px;
-    }
-    .profile {
-        border: 0px solid;
-        width: 102px;
-        border-radius: 100px;
-        overflow: hidden;
-    }
-    img#myImg {
-        width: 100px;
-        margin-bottom: 12px;
-    }
-    </style>
-</head>
-<body>
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="lastuser text-danger text-center" >
-                      <?= isset($resultData['response']) ? '<div class="alert alert-danger">'.$resultData['response'].'</div>' : '' ; ?>
-                    </div>
-                    <div class="card-header h4 m-0 text-center">Users Remove</div>
-                    <div class="card-body">
-                        <table class="table table-striped text-left">
-                            <tr>
-                                <th>Sr No.</th>
-                                <th>User Name</th>
-                                <th>User Role</th>
-                                <th>Delete</th>
-                            </tr>
-                            <?php if (!empty($allAssignedUsers)): ?>
-                                <?php foreach ($allAssignedUsers as $key => $user): ?>
-                                    <tr>
-                                        <td><?= $key + 1 ?></td>
-                                        <td><?= $user['name']; ?></td>
-                                        <td><?= $user['role']; ?></td>
-                                        <td>
-                                        <form id="deleteForm_<?= $user['id'] ?>" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                                            <input type="hidden" name="userId" value="<?= $user['id'] ?>">
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete(<?= $user['id'] ?>)">Delete</button>
-                                        </form>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <tr>
-                                    <td colspan="3">No users found</td>
-                                </tr>
-                            <?php endif; ?>
-                        </table>
-                        <div class="text-center" >
-                                <a class="hover-link " style="cursor: pointer;" onclick="navigate()">Go to back</a>
-                            </div>
 
-                            <script>
-                                function navigate() {
-                                    window.location.href = 'http://localhost/view-hiring/index.php';
-                                }
-                            </script>
-                    </div>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="lastuser text-danger text-center" >
+                    <?= isset($resultData['response']) ? '<div class="alert alert-danger">'.$resultData['response'].'</div>' : '' ; ?>
+                </div>
+                <div class="card-header h4 m-0 text-center">Users Remove</div>
+                <div class="card-body">
+                    <table class="table table-striped text-left">
+                        <tr>
+                            <th>Sr No.</th>
+                            <th>User Name</th>
+                            <th>User Role</th>
+                            <th>Delete</th>
+                        </tr>
+                        <?php if (!empty($allAssignedUsers)): ?>
+                            <?php foreach ($allAssignedUsers as $key => $user): ?>
+                                <tr>
+                                    <td><?= $key + 1 ?></td>
+                                    <td><?= $user['name']; ?></td>
+                                    <td><?= $user['role']; ?></td>
+                                    <td>
+                                    <form id="deleteForm_<?= $user['id'] ?>" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                                        <input type="hidden" name="userId" value="<?= $user['id'] ?>">
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete(<?= $user['id'] ?>)">Delete</button>
+                                    </form>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="3">No users found</td>
+                            </tr>
+                        <?php endif; ?>
+                    </table>
+                    <div class="text-center" >
+                            <a class="hover-link " style="cursor: pointer;" onclick="navigate()">Go to back</a>
+                        </div>
+
+                        <script>
+                            function navigate() {
+                                window.location.href = 'http://localhost/view-hiring/index.php';
+                            }
+                        </script>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        function confirmDelete(userId) {
-            if (confirm("Are you sure you want to delete this user?")) {
-                // If user confirms deletion, submit the form
-                document.getElementById('deleteForm_' + userId).submit();
-            }
+<script>
+    function confirmDelete(userId) {
+        if (confirm("Are you sure you want to delete this user?")) {
+            // If user confirms deletion, submit the form
+            document.getElementById('deleteForm_' + userId).submit();
         }
-    </script>
-</body>
-</html>
-
+    }
+</script>
+<?php include('../footer.php');?>
 

@@ -1,5 +1,5 @@
 <?php
-include("../global.php");
+include("../header.php");
 session_start();
 
 // Check if the user is logged in
@@ -18,57 +18,20 @@ $documentData = isset($userDatas['response']) ? $userDatas['response'] : '';
 ?>
 
 <?= isset($errors['user']) ? '<p style="color:#cd2322;margin:0px !important">' . $errors['user'] . '</p>' : ''; ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Show Document</title>
-	<!-- Latest compiled and minified CSS -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-	<!-- Latest compiled JavaScript -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-	<style>
-		.card {
-			width: 80%;
-			height: 550px;
-		}
-		.embed-responsive {
-			position: relative;
-			display: block;
-			width: 100%;
-			padding: 0;
-			overflow: hidden;
-		}
-		.embed-responsive::before {
-			display: block;
-			content: "";
-		}
-		.embed-responsive-16by9::before {
-			padding-top: 56.25%;
-		}
-		.embed-responsive-item {
-			position: absolute;
-			top: 0;
-			left: 0;
-			bottom: 0;
-			height: 100%;
-			width: 100%;
-			border: 0;
-		}
-	</style>
-</head>
-<body>
-	<div class="container mt-2"> <?php
+
+	<div class="container mb-5"> <?php
 		if(!empty($documentData)){
 			foreach ($documentData as $documents) {
 				$document = isset($documents['user_documents']) ? $documents['user_documents'] : ''; ?>
-				<div class="card mx-auto mb-3">
+				<div class="card mx-auto m-5" style =" width: 830px ; height: 641px;">
 					<div class="embed-responsive embed-responsive-16by9">
 						<embed
 							src="<?= !empty($document) ? $document : ''; ?>"
 							type="application/pdf"
 							class="embed-responsive-item"
+							style=" width: 785px !important;
+											margin: 23px;
+											height: 594px;"
 						></embed>
 					</div>
 				</div><?php 
@@ -88,5 +51,6 @@ $documentData = isset($userDatas['response']) ? $userDatas['response'] : '';
 		} ?>
 		
 	</div>
-</body>
-</html>
+
+	<?php
+include("../footer.php");

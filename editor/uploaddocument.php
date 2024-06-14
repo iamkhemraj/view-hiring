@@ -1,5 +1,5 @@
 <?php
-include("../global.php");
+include("../header.php");
 session_start();
 $errors = [];
 $success_message = '';
@@ -65,114 +65,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['invalid'] = 'An error occurred. Please try again later.';
     }
 }
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Profile</title>
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link
-        rel="stylesheet"
-        href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css"
-      >
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .container {
-            margin-top: 50px;
-        }
-        .card {
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .card-header {
-            color: 000;
-            border-radius: 15px 15px 0 0;
-            font-weight: bold;
-        }
-        .card-body {
-            padding: 30px;
-        }
-        .form-control {
-            border-radius: 5px;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-            border-radius: 5px;
-            width: 100%;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
-        }
-        .link {
-            color: #007bff;
-        }
-        .link:hover {
-            color: #0056b3;
-            text-decoration: underline;
-        }
-        .profile-picture {
-            text-align: center;
-        }
-        .profile-picture img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .profile-picture .edit-btn {
-            position: relative;
-            top: -40px;
-            left: 60px;
-            background-color: #fff;
-            border: 1px solid #ced4da;
-            border-radius: 50%;
-            padding: 5px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                <?= !empty($success_message) ? '<div class="alert alert-success">' . $success_message . '</div>' : ''; ?>
-                    <div class="card-header text-center">Upload Document </div>
-                    <div class="card-body">
-                      
-                        <form action="<?= $_SERVER['PHP_SELF']; ?>" method="post" autocomplete="off" enctype="multipart/form-data">
-                        
-                          <div class="mb-3">
-                              <label for="user_documents" class="form-label">Upload Document</label>
-                              <input type="file" name="user_documents" id="user_documents" class="form-control">
-                              <?= isset($errors['user_documents']) ? '<small class="text-danger">' . $errors['user_documents'] . '</small>' : ''; ?>
-                          </div>
-                          
-                          <div class="mb-3">
-                              <input type="submit" value="Upload" class="btn btn-primary">
-                          </div>
-                          <div class="text-center" >
-                              <a class="hover-link " style="cursor: pointer;" onclick="navigate()">Go to  back</a>
-                          </div>
 
-                          <script>
-                              function navigate() {
-                                window.location.href = 'http://localhost/view-hiring/index.php';
-                              }
-                          </script>
-                        </form>
-                    </div>
+?>
+
+<div class="container">
+    <div class="row justify-content-center" style="margin: 34px;">
+        <div class="col-md-6">
+            <div class="card">
+            <?= !empty($success_message) ? '<div class="alert alert-success">' . $success_message . '</div>' : ''; ?>
+                <div class="card-header text-center">Upload Document </div>
+                <div class="card-body">
+                    
+                    <form action="<?= $_SERVER['PHP_SELF']; ?>" method="post" autocomplete="off" enctype="multipart/form-data">
+                    
+                        <div class="mb-3">
+                            <label for="user_documents" class="form-label">Upload Document</label>
+                            <input type="file" name="user_documents" id="user_documents" class="form-control">
+                            <?= isset($errors['user_documents']) ? '<small class="text-danger">' . $errors['user_documents'] . '</small>' : ''; ?>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <input type="submit" value="Upload" class="btn btn-primary">
+                        </div>
+                        <div class="text-center" >
+                            <a class="hover-link " style="cursor: pointer;" onclick="navigate()">Go to  back</a>
+                        </div>
+
+                        <script>
+                            function navigate() {
+                            window.location.href = 'http://localhost/view-hiring/index.php';
+                            }
+                        </script>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>
+<?php
+include("../footer.php");

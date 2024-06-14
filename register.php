@@ -1,5 +1,5 @@
 <?php
-require_once('global.php');
+ include('header.php'); 
 session_start();
 $errors = [];
 
@@ -74,66 +74,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header h4 m-0 text-center"> Welcome To The Hiring Management </div>
+                <div class="card-body">
+                    <form action="<?= $_SERVER['PHP_SELF']; ?>" method="post" autocomplete="off">
+                        <div class="form-group">
+                            <label for="name">Name</label> 
+                            <input type="text" name="name" id="name" class="form-control" value="<?= htmlspecialchars($name); ?>">
+                            <?= isset($errors['name']) ? '<p style="color:#cd2322;margin:0px !important"> ' . $errors['name'] . '  </p>' : ''; ?>
+                        </div>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" name="email" id="email" class="form-control" value="<?= htmlspecialchars($email); ?>">
+                            <?= isset($errors['email']) ? '<p style="color:#cd2322;margin:0px !important"> ' . $errors['email'] . '  </p>' : ''; ?>
+                        </div>
 
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        label {
-            display: block;
-            width: 100%;
-        }
-    </style>
-</head>
-<body>
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-5">
-                <div class="card">
-                    <div class="card-header h4 m-0 text-center"> Welcome To The Hiring Management </div>
-                    <div class="card-body">
-                        <form action="<?= $_SERVER['PHP_SELF']; ?>" method="post" autocomplete="off">
-                            <div class="form-group">
-                                <label for="name">Name</label> 
-                                <input type="text" name="name" id="name" class="form-control" value="<?= htmlspecialchars($name); ?>">
-                                <?= isset($errors['name']) ? '<p style="color:#cd2322;margin:0px !important"> ' . $errors['name'] . '  </p>' : ''; ?>
-                            </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" class="form-control" value="">
+                            <?= isset($errors['password']) ? '<p style="color:#cd2322;margin:0px !important"> ' . $errors['password'] . '  </p>' : ''; ?>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="email">E-mail</label>
-                                <input type="email" name="email" id="email" class="form-control" value="<?= htmlspecialchars($email); ?>">
-                                <?= isset($errors['email']) ? '<p style="color:#cd2322;margin:0px !important"> ' . $errors['email'] . '  </p>' : ''; ?>
-                            </div>
+                        <div class="form-group">
+                            <label for="cnfmpwd">Confirm Password</label>
+                            <input type="password" name="password_confirmation" id="cnfmpwd" class="form-control" value="">
+                            <?= isset($errors['password_confirmation']) ? '<p style="color:#cd2322;margin:0px !important"> ' . $errors['password_confirmation'] . '  </p>' : ''; ?><br>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" name="password" id="password" class="form-control" value="">
-                                <?= isset($errors['password']) ? '<p style="color:#cd2322;margin:0px !important"> ' . $errors['password'] . '  </p>' : ''; ?>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="cnfmpwd">Confirm Password</label>
-                                <input type="password" name="password_confirmation" id="cnfmpwd" class="form-control" value="">
-                                <?= isset($errors['password_confirmation']) ? '<p style="color:#cd2322;margin:0px !important"> ' . $errors['password_confirmation'] . '  </p>' : ''; ?><br>
-                            </div>
-
-                            <div class="form-group">
-                                <input type="submit" value="submit" class="btn btn-primary form-control"></br>
-                                if you have an account <a href="http://localhost/view-hiring/login.php">login</a>
-                            </div>
-                        </form>
-                    </div>
+                        <div class="form-group">
+                            <input type="submit" value="submit" class="btn btn-primary form-control"></br>
+                            if you have an account <a href="http://localhost/view-hiring/login.php">login</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>
+<?php include('footer.php'); ?>

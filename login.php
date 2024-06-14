@@ -1,5 +1,5 @@
 <?php
-require_once('global.php');
+include('header.php');
 session_start();
 $errors = [];
 $unauthorized = '';
@@ -31,13 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'ignore_errors' => true, // Capture response even if it fails
             ],
         ];
-        $context = stream_context_create($options);
-        $result = file_get_contents( BASE_URL . '/api/login', false, $context);
-
-        // Decode the JSON response
+        $context  = stream_context_create($options);
+        $result   = file_get_contents( BASE_URL . '/api/login', false, $context);
         $response = json_decode($result, true);
-
-        // Get the response headers and status code
         $http_response_header = $http_response_header ?? [];
         $status_code = null;
         if (!empty($http_response_header)) {
@@ -70,18 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-5">
@@ -107,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <?php if (isset($errors['password'])): ?>
                                 <small class="text-danger"><?php echo htmlspecialchars($errors['password']); ?></small>
                             <?php endif; ?>
-                        </div>
+                        </div><br>
                         <button type="submit" class="btn btn-primary">Login</button><br>
                         If you don't have any account <a href="register.php">Register</a>
                     </form>
@@ -117,9 +104,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </div>
 
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+<?php include('footer.php');  ?>

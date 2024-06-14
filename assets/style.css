@@ -1,0 +1,12 @@
+/* Profile image  */
+.profile img {
+  width: 126px;
+  height: 111px;
+  margin-left: 14px;
+}
+
+/* user tabs */
+tr.usert_tabs a {
+  margin-top: 7px;
+}
+
