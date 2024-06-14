@@ -1,4 +1,5 @@
 <?php
+require_once('global.php');
 session_start();
 
 if (isset($_SESSION['access_token'])) {
@@ -14,7 +15,7 @@ if (isset($_SESSION['access_token'])) {
     $context  = stream_context_create($options);
     
     // Send the logout request
-    $result = file_get_contents('http://localhost:5000/api/logout', false, $context);
+    $result = file_get_contents(BASE_URL . '/api/logout', false, $context);
 
     // Optionally, check the result for any errors
     if ($result === FALSE) {

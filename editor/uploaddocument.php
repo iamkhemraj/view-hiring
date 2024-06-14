@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $curl = curl_init();
     // Set cURL options
     curl_setopt_array($curl, [
-        CURLOPT_URL =>  'http://localhost:5000/user/UserDocuments',
+        CURLOPT_URL =>  BASE_URL . '/user/UserDocuments',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POST => true,
         CURLOPT_POSTFIELDS => $data,

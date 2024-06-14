@@ -10,7 +10,7 @@ if (!isset($_SESSION['access_token'])  ) {
 $token        = $_SESSION['access_token'];
 $options      = ['http' => [ 'header' => "Authorization: Bearer $token\r\n", 'method' => 'GET', ],];
 $context      = stream_context_create($options);
-$result       = @file_get_contents('http://localhost:5000/user/ShowDocument', false, $context);
+$result       = @file_get_contents( BASE_URL . '/user/ShowDocument', false, $context);
 $userDatas    = json_decode($result, true); // decode user data
 $documentData = isset($userDatas['response']) ? $userDatas['response'] : ''; 
 

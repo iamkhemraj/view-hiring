@@ -1,4 +1,5 @@
 <?php
+require_once('global.php');
 session_start();
 $errors = [];
 
@@ -16,9 +17,9 @@ $options = [
 ];
 $context = stream_context_create($options);
 if($_SESSION['role']=='admin'){
-    $result = file_get_contents('http://localhost:5000/admin/adminShowUsers', false, $context);
+    $result = file_get_contents( BASE_URL . '/admin/adminShowUsers', false, $context);
 } elseif ($_SESSION['role'] == 'super admin') {
-    $result = file_get_contents('http://localhost:5000/api/showUsers', false, $context);
+    $result = file_get_contents( BASE_URL . '/api/showUsers', false, $context);
 }
 $user = json_decode($result, true);
 
@@ -45,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     $context = stream_context_create($options);
-    $result = file_get_contents('http://localhost:5000/super_admin/delete', false, $context);
+    $result = file_get_contents(BASE_URL . '/super_admin/delete', false, $context);
     $resultData = json_decode(  $result , true);
    
     if ($result !== false) {

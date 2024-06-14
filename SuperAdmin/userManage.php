@@ -14,7 +14,7 @@ $options = [
     ],
 ];
 $context   = stream_context_create($options);
-$result    = file_get_contents('http://localhost:5000/super_admin/getUserAdminData', false, $context);
+$result    = file_get_contents( BASE_URL . '/super_admin/getUserAdminData', false, $context);
 $userdetails  = json_decode($result, true);
 
 if(!empty($userdetails)){     
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     $context = stream_context_create($options);
-    $result  = file_get_contents('http://localhost:5000/super_admin/assign-user', false, $context);
+    $result  = file_get_contents(BASE_URL . '/super_admin/assign-user', false, $context);
 
     $errorsdata    = json_decode($result, true);
     $errorMessages = [];

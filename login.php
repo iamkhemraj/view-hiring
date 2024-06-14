@@ -1,4 +1,5 @@
 <?php
+require_once('global.php');
 session_start();
 $errors = [];
 $unauthorized = '';
@@ -31,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ],
         ];
         $context = stream_context_create($options);
-        $result = file_get_contents('http://localhost:5000/api/login', false, $context);
+        $result = file_get_contents( BASE_URL . '/api/login', false, $context);
 
         // Decode the JSON response
         $response = json_decode($result, true);

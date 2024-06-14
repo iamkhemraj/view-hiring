@@ -1,4 +1,5 @@
 <?php
+require_once('global.php');
 session_start();
 $errors = [];
 $success_message = '';
@@ -17,7 +18,7 @@ $options = [
     ],
 ];
 $context = stream_context_create($options);
-$result = file_get_contents('http://localhost:5000/super_admin/getAllUserData', false, $context);
+$result = file_get_contents(BASE_URL . '/super_admin/getAllUserData', false, $context);
 $userdetails = json_decode($result, true);
 $userdata = !empty($userdetails) ? ($userdetails['userdata'][0] ?? '') : '';
 
@@ -56,11 +57,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Initialize cURL session
     $curl = curl_init();
     if($_SESSION['role'] == 'admin'){
-        $url ='http://localhost:5000/admin/updateProfile';
+        $url = BASE_URL . '/admin/updateProfile';
     }elseif($_SESSION['role'] == 'super admin'){
-        $url = 'http://localhost:5000/super_admin/updateProfile';
+        $url = BASE_URL . '/super_admin/updateProfile';
     }else{
-        $url = 'http://localhost:5000/user/updateProfile';
+        $url = BASE_URL . '/user/updateProfile';
     }
     // Set cURL options
     curl_setopt_array($curl, [

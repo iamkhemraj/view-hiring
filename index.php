@@ -1,4 +1,5 @@
 <?php
+require_once('global.php');
 session_start();
 $errors = [];
 
@@ -9,6 +10,7 @@ $password = '';
 $password_confirmation = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
     $name = $_POST['name'] ?? '';
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
@@ -23,10 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'ignore_errors' => true, // Capture response even if it fails
         ],
     ];
-    $context = stream_context_create($options);
-    $result = file_get_contents('http://localhost:5000/api/create', false, $context);
 
-    $errorsdata = json_decode($result, true);
+    $context       = stream_context_create($options);
+    $result        = file_get_contents(BASE_URL . '/api/create', false, $context);
+    $errorsdata    = json_decode($result, true);
     $errorMessages = [];
 
     if (isset($errorsdata['name'])) {
@@ -53,11 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         list($protocol, $code, $message) = explode(' ', $http_response_header[0], 3);
         $status_code = intval($code);
     }
-    // print_r($result);
+    
     if ($result !== false) {
         $response = json_decode($result, true);
         if (isset($response['status'])) {
-            header('Location: login.php'); // Redirect to profile.php
+            header('Location: login.php'); // Redirect to login.php
             exit();
         } else {
             // Handle error response from API if needed
@@ -71,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

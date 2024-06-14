@@ -1,4 +1,5 @@
 <?php
+require_once('global.php');
 session_start();
 if (!isset($_SESSION['access_token'])) {
     header('Location: login.php');
@@ -14,7 +15,7 @@ $options = [
     ],
 ];
 $context  = stream_context_create($options);
-$result   = file_get_contents('http://localhost:5000/assigned-users', false, $context);
+$result   = file_get_contents( BASE_URL . '/assigned-users', false, $context);
 $user     = json_decode($result, true);
 $allAssignedUsers = !empty($user) && isset($user['allAssignedUsers']) ? $user['allAssignedUsers'] : [];
 ?>

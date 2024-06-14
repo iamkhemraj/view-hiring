@@ -1,4 +1,6 @@
 <?php
+require_once('global.php');
+
 session_start();
 $errors = [];
 
@@ -38,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     $context = stream_context_create($options);
-    $result = file_get_contents('http://localhost:5000/super_admin/admin/register', false, $context);
+    $result = file_get_contents(BASE_URL . '/super_admin/admin/register', false, $context);
 
     $errorsdata = json_decode($result, true);
     $errorMessages = [];

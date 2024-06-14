@@ -1,4 +1,5 @@
 <?php
+require_once('global.php');
 session_start();
 
 // Check if the user is logged in
@@ -15,7 +16,7 @@ $options = [
     ],
 ];
 $context = stream_context_create($options);
-$result = @file_get_contents('http://localhost:5000/api/profile', false, $context);
+$result = @file_get_contents(BASE_URL . '/api/profile', false, $context);
 
 if ($result === FALSE) {
     // Assuming the API returns 401 Unauthorized if the token is expired
