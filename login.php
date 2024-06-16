@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result !== false) {
             if (isset($response['access_token'])) {
                 $_SESSION['access_token'] = $response['access_token'];
-                setcookie('access_token', $response['access_token'], time() + (86400 * 30), "/"); // 30 days expiration
+                $_SESSION['last_activity'] = time();
                 header('Location: index.php');
                 exit();
             } else {
