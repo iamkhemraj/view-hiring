@@ -6,7 +6,6 @@
     exit();
     }
     $token   = $_SESSION['access_token'];
-
     $options = [
         'http' => [
             'header' => "Authorization: Bearer $token\r\n",
@@ -18,19 +17,16 @@
     $result      = @file_get_contents(BASE_URL . '/api/tokenTime', false, $context);
     $tokenExpire = json_decode($result);
     $tokentime   = ($tokenExpire->response);
-
-        // Check if the last activity timestamp is set
-        if (isset($_SESSION['last_activity'])) {
-            // Calculate the session lifetime
-            $duration = time() - $_SESSION['last_activity'];
-            
-            // If the session has expired
-            if ($duration > $tokentime) {
-                // Destroy the session and redirect to the logout page
-                header('Location: logout.php');
-                exit();
-            }
+    //Check session is expire or not
+    
+    if (isset($_SESSION['last_activity'])) {
+        $duration = time() - $_SESSION['last_activity'];
+        if ($duration > $tokentime) {
+            header('Location: logout.php');
+            exit();
         }
+    }
+
     $options = [
         'http' => [
             'header' => "Authorization: Bearer $token\r\n",
@@ -52,57 +48,6 @@
     $_SESSION['role'] = $user['role'];
 
     ?>
-    <!-- Your HTML content for the profile page here -->
-    <?php
-    include('header.php');
-    session_start();
-
-    // Redirect to login page if access token is not set
-    if (!isset($_SESSION['access_token'])) {
-        header('Location: login.php');
-        exit();
-    }
-
-    // Set token expiration time in seconds (2 minutes)
-    $tokenExpire = 120;
-
-    // Check if last activity is set and calculate duration since last activity
-    if (isset($_SESSION['last_activity'])) {
-        $duration = time() - $_SESSION['last_activity'];
-        if ($duration > $tokenExpire) {
-            // Redirect to logout page if duration exceeds token expiration time
-            header('Location: logout.php');
-            exit();
-        }
-    }
-
-    // Update the last activity timestamp
-    $_SESSION['last_activity'] = time();
-
-    $token = $_SESSION['access_token'];
-
-    $options = [
-        'http' => [
-            'header' => "Authorization: Bearer $token\r\n",
-            'method' => 'GET',
-        ],
-    ];
-    $context = stream_context_create($options);
-    $result = @file_get_contents(BASE_URL . '/api/tokenTime', false, $context);
-
-    if ($result === FALSE) {
-        // If the token is expired or invalid
-        session_unset();
-        session_destroy();
-        header('Location: login.php');
-        exit();
-    }
-
-    $user = json_decode($result, true);
-    $_SESSION['role'] = $user['role'];
-    ?>
-
-
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -167,7 +112,4 @@
         </div>
     </div>
 
-    <?php
-
-    include('footer.php');
-    ?>
+    <?php include('footer.php'); ?>

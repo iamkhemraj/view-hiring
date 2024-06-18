@@ -9,7 +9,7 @@ if (!isset($_SESSION['access_token'])) {
     exit();
 }
 
-echo $token = $_SESSION['access_token'];
+$token = $_SESSION['access_token'];
 $options = [
     'http' => [
         'header' => "Authorization: Bearer $token\r\n",
