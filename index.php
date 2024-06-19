@@ -79,7 +79,7 @@ include('header.php');
                     </div>
                     <div class="btn-group mb-3" role="group" aria-label="User Actions">
                         <a href="SuperAdmin/update.php" class="btn btn-outline-primary">Edit user</a>
-                        <a href="logout.php" class="btn btn-outline-danger">Logout</a>
+                        <a  class="btn btn-outline-danger" onclick="logout()">Logout</a>
                     </div>
                     <table class="table table-bordered ">
                         <tr>
@@ -126,39 +126,57 @@ include('header.php');
             </div>
         </div>
     </div>
-</div>
+</div> 
+
 <script>
-    // Set the countdown duration in seconds
-    const countdownDuration = <?= $tokentime; ?> // 30 minutes in seconds
-    // time stored in local storage
-    let endTime = localStorage.getItem('countdownEndTime');
-    if (!endTime) {
-        // If no end time is stored, set a new end time
-        endTime = new Date().getTime() + countdownDuration * 1000;
-        localStorage.setItem('countdownEndTime', endTime);
+   // Initialize the countdown timer on page load
+    function countdownDuration() {
+        // Set the countdown duration in seconds (example: 30 minutes)
+        const countdownDuration = <?= $tokentime; ?> * 1000; // Convert to milliseconds
+        let endTime = localStorage.getItem('countdownEndTime');
+
+        if (!endTime) {
+            // Initialize endTime
+            endTime = new Date().getTime() + countdownDuration;
+            localStorage.setItem('countdownEndTime', endTime);
+        }
+
+        let x = setInterval(function() {
+            // Get current time
+            let now = new Date().getTime();
+            let distance = endTime - now;
+
+            let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+
+            // Refresh page after end countdown
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("hours").textContent = "00";
+                document.getElementById("minutes").textContent = "00";
+                document.getElementById("seconds").textContent = "00";
+                localStorage.removeItem('countdownEndTime');
+                setTimeout(function() {
+                    location.reload();
+                }, 1000); // Refresh the page after 1 second
+            }
+        }, 1000);
+    }
+    // stop couter on logout
+    function logout() {
+        // Clear the countdown time on manual logout
+        localStorage.removeItem('countdownEndTime');
+        // Redirect to logout endpoint (example: '/logout')
+        window.location.href = '/view-hiring/logout.php';
     }
 
-    let x = setInterval(function() {
-        // Get current time
-        let now = new Date().getTime();
-        let distance = endTime - now;
-        let hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        $("#hours").text(hours.toString().padStart(2, '0'));
-        $("#minutes").text(minutes.toString().padStart(2, '0'));
-        $("#seconds").text(seconds.toString().padStart(2, '0'));
-        // Refresh page after end count down
-        if (distance < 0) {
-            clearInterval(x);
-            $("#hours").text("00");
-            $("#minutes").text("00");
-            $("#seconds").text("00");
-            localStorage.removeItem('countdownEndTime');
-            setTimeout(function() {
-                location.reload();
-            }, 1000); // Refresh the page after 1 second
-        }
-    }, 1000);
+    //call fucntion
+    countdownDuration();
 </script>
+
 <?php include('footer.php'); ?>
