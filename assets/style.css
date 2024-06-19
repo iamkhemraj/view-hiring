@@ -10,3 +10,24 @@ tr.usert_tabs a {
   margin-top: 7px;
 }
 
+
+
+/* clock style */
+
+#clock {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  display: flex;
+  justify-content: right;
+  font-size: 22px;
+  letter-spacing: 0.1em;
+}
+.time-segment {
+  margin: 0 10px;
+  text-align: center;
+}
+.time-segment span {
+  display: block;
+  font-size: 0.5em;
+  color: #666;
+}
