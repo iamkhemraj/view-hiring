@@ -1,7 +1,6 @@
 
 <?php
 include("../header.php");
-session_start();
 
 if (!isset($_SESSION['access_token']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'super admin') {
     header('Location: /view-hiring/index.php'); // Redirect to the profile page

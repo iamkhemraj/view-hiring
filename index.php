@@ -1,52 +1,51 @@
 <?php
-include('header.php');
-  session_start();
-  if (!isset($_SESSION['access_token'])) {
-      header('Location: login.php');
-  exit();
-  }
-  $tokentime = $duration =  '' ;
-  $token   = $_SESSION['access_token'];
-  $options = [
-      'http' => [
-          'header' => "Authorization: Bearer $token\r\n",
-          'method' => 'GET',
-      ],
-  ];
+    include('header.php');
+    if (!isset($_SESSION['access_token'])) {
+        header('Location: login.php');
+        exit();
+    }
+    $tokentime = $duration =  '' ;
+    $token   = $_SESSION['access_token'];
+    $options = [
+        'http' => [
+            'header' => "Authorization: Bearer $token\r\n",
+            'method' => 'GET',
+        ],
+    ];
 
-  $context     = stream_context_create($options);
-  $result      = @file_get_contents(BASE_URL . '/api/tokenTime', false, $context);
-  $tokenExpire = json_decode($result);
-  $tokentime   = ($tokenExpire->response);
-  //Check session is expire or not
-  
-  if (isset($_SESSION['last_activity'])) {
-      $duration = time() - $_SESSION['last_activity'];
-      if ($duration > $tokentime) {
+    $context     = stream_context_create($options);
+    $result      = @file_get_contents(BASE_URL . '/api/tokenTime', false, $context);
+    $tokenExpire = json_decode($result);
+    $tokentime   = ($tokenExpire->response);
+    //Check session is expire or not
+    
+    if (isset($_SESSION['last_activity'])) {
+        $duration = time() - $_SESSION['last_activity'];
+        if ($duration > $tokentime) {
         header('Location: logout.php');
         exit();
-      }
-  }
+        }
+    }
 
-  $options = [
-      'http' => [
-          'header' => "Authorization: Bearer $token\r\n",
-          'method' => 'GET',
-      ],
-  ];
-  $context = stream_context_create($options);
-  $result  = @file_get_contents(BASE_URL . '/api/profile', false, $context);
+    $options = [
+        'http' => [
+            'header' => "Authorization: Bearer $token\r\n",
+            'method' => 'GET',
+        ],
+    ];
+    $context = stream_context_create($options);
+    $result  = @file_get_contents(BASE_URL . '/api/profile', false, $context);
 
-  if ($result === FALSE) {
-      // If the token is expired or invalid
-      session_unset();
-      session_destroy();
-      header('Location: login.php');
-      exit();
-  }
+    if ($result === FALSE) {
+        // If the token is expired or invalid
+        session_unset();
+        session_destroy();
+        header('Location: login.php');
+        exit();
+    }
 
-  $user = json_decode($result, true);
-  $_SESSION['role'] = $user['role'];
+    $user = json_decode($result, true);
+    $_SESSION['role'] = $user['role'];
 
 ?>
   

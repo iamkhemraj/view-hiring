@@ -1,4 +1,8 @@
-<?php require_once('global.php'); ?>
+<?php
+session_start();
+require_once('global.php'); 
+ 
+?>
 <!DOCTYPE html>
 <html>
 <head>

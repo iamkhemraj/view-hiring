@@ -1,11 +1,10 @@
 <?php
 include("../header.php");
-session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['access_token'])  ) {
-		header('Location: /view-hiring/index.php'); // Redirect to the profile page
-    exit();
+	header('Location: /view-hiring/index.php'); // Redirect to the profile page
+	exit();
 }
 
 $token        = $_SESSION['access_token'];

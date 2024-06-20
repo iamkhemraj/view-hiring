@@ -1,9 +1,8 @@
 <?php
 include('header.php');
-session_start();
 $errors = [];
 $unauthorized = '';
-
+//lO
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
     $password = trim($_POST['password'] ?? '');

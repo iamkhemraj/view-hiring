@@ -1,6 +1,5 @@
 <?php
- include('header.php'); 
-session_start();
+include('header.php'); 
 $errors = [];
 
 // Initialize variables for form fields

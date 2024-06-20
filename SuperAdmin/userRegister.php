@@ -1,6 +1,5 @@
 <?php
 include("../header.php");
-session_start();
 $errors = [];
 
 // Check if the super admin user is logged in

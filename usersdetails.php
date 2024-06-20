@@ -1,11 +1,11 @@
 <?php
 require_once('header.php');
-session_start();
+
+// Fetch  all assigned  users deatails 
 if (!isset($_SESSION['access_token'])) {
     header('Location: login.php');
     exit();
 }
-
 
 $token = $_SESSION['access_token'];
 $options = [
@@ -19,7 +19,6 @@ $result   = file_get_contents( BASE_URL . '/assigned-users', false, $context);
 $user     = json_decode($result, true);
 $allAssignedUsers = !empty($user) && isset($user['allAssignedUsers']) ? $user['allAssignedUsers'] : [];
 ?>
-
 
 <div class="container mt-5">
     <div class="row justify-content-center">
