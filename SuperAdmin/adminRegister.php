@@ -2,6 +2,7 @@
 
 include("../header.php");
 $errors = [];
+$success_message ='';
 
 // Check if the super admin user is logged in
 if (!isset($_SESSION['access_token']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'super admin') {
@@ -72,10 +73,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result !== false) {
         $response = json_decode($result, true);
         if (isset($response['status'])) {
-            header('Location: /view-hiring/login.php'); // Redirect to login.php
-            exit();
+            $success_message = isset($response['status']) ? $response['status'] : '';
         } else {
-            // Handle error response from API if needed
+            $success_message = "Admin not create!";
         }
     } else {
         if ($status_code === 401) {
@@ -91,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="card">
+            <?= !empty($success_message) ? '<div class="alert alert-success">' . $success_message . '</div>' : ''; ?>
                 <div class="card-header h4 m-0 text-center">Register Admin By Super Admin</div>
                 <div class="card-body">
                     <form action="<?= $_SERVER['PHP_SELF']; ?>" method="post" autocomplete="off">

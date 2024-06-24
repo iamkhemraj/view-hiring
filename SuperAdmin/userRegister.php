@@ -74,12 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result !== false) {
         $response = json_decode($result, true);
-        $success_message = isset($response['response']) ? $response['response'] : '';
         if (isset($response['status'])) {
-            header("location:javascript://history.go(-1)");
-            exit();
+            $success_message = isset($response['status']) ? $response['status'] : '';
         } else {
-            // Handle error response from API if needed
+            $success_message = "User not create!";
         }
     } else {
         if ($status_code === 401) {
