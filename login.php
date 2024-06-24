@@ -16,8 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($password)) {
         $errors['password'] = 'Password is required';
-    } elseif (strlen($password) > 8) {
-        $errors['password'] = 'Password must be at most 8 characters long';
+    } elseif (strlen($password) < 8) {
+        $errors['password'] = 'The password must be at least 8 characters';
     }
 
     if (empty($errors)) {
@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div class="form-group">
                             <label for="password">Password:</label>
-                            <input type="password" class="form-control" id="password" name="password" maxlength="8">
+                            <input type="password" class="form-control" id="password" name="password">
                             <?php if (isset($errors['password'])): ?>
                                 <small class="text-danger"><?php echo htmlspecialchars($errors['password']); ?></small>
                             <?php endif; ?>

@@ -91,14 +91,14 @@
                                     case 'admin':
                                         ?>
                                         <a href="SuperAdmin/userRegister.php" class="d-block btn btn-outline-primary">Register user</a>
-                                        <a href="SuperAdmin/usersremove.php" class="d-block btn btn-outline-primary">Users Remove</a>
+                                        <a href="SuperAdmin/usersremove.php" class="d-block btn btn-outline-primary">Users remove</a>
                                         <?php
                                         break;
                                 
                                     case 'editor':
                                         ?>
                                         <a href="editor/uploaddocument.php" class="d-block btn btn-outline-primary">Upload document</a>
-                                        <a href="editor/showdocument.php" class="d-block btn btn-outline-primary">Show Document</a>
+                                        <a href="editor/showdocument.php" class="d-block btn btn-outline-primary">Show document</a>
                                         <?php
                                         break;
                                 
@@ -107,11 +107,11 @@
                                         <a href="SuperAdmin/adminRegister.php" class="d-block btn btn-outline-primary">Register admin</a>
                                         <a href="SuperAdmin/userManage.php" class="d-block btn btn-outline-primary">Manage user</a>
                                         <a href="SuperAdmin/userRegister.php" class="d-block btn btn-outline-primary">Register user</a>
-                                        <a href="SuperAdmin/usersremove.php" class="d-block btn btn-outline-primary">Users Remove</a>
+                                        <a href="SuperAdmin/usersremove.php" class="d-block btn btn-outline-primary">Users remove</a>
                                         <?php
                                         break;
                                 }?>
-                                <a href="usersdetails.php" class="d-block btn btn-outline-primary">Assigned User</a>        
+                                <a href="usersdetails.php" class="d-block btn btn-outline-primary">Under admin</a>        
                             </th>
                         </tr>
                         <tr class="username">
