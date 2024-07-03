@@ -40,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'ignore_errors' => true, // Capture response even if it fails
         ],
     ];
-    // print_r($options);
     $context = stream_context_create($options);
     $result = file_get_contents(BASE_URL . '/super_admin/delete', false, $context);
     $resultData = json_decode(  $result , true);
