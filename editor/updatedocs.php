@@ -5,13 +5,13 @@ $success_message = '';
 
 // Check if the super admin user is logged in
 if (!isset($_SESSION['access_token'])) {
-    header('Location: /view-hiring/index.php'); // Redirect to the profile page
-    exit();
+header('Location: /view-hiring/index.php'); // Redirect to the profile page
+exit();
 }
 
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-   
+if($_SESSION['role'] == 'editor'){
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
     $document = $_POST['user_documents'] ?? '';
 
     // Prepare data for API request
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $curl = curl_init();
     // Set cURL options
     curl_setopt_array($curl, [
-        CURLOPT_URL =>  BASE_URL . '/user/UserDocuments',
+        CURLOPT_URL =>  BASE_URL . '/user/updateUserDocs',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POST => true,
         CURLOPT_POSTFIELDS => $data,
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Handle API response
     if ($result !== false) {
         $errorsdata = json_decode($result, true);
-       $success_message = isset($errorsdata['response']) ? $errorsdata['response'] : '' ;
+      $success_message = isset($errorsdata['response']) ? $errorsdata['response'] : '' ;
         $errorMessages = [];
         if (isset($errorsdata['user_documents'])) {
             $errorMessages['user_documents'] = implode(', ', $errorsdata['user_documents']);
@@ -62,16 +62,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Handle API request failure
         $errors['invalid'] = 'An error occurred. Please try again later.';
     }
+  }
+}else{
+  header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
-
 ?>
-
 <div class="container">
     <div class="row justify-content-center" style="margin: 34px;">
         <div class="col-md-6">
             <div class="card">
             <?= !empty($success_message) ? '<div class="alert alert-success">' . $success_message . '</div>' : ''; ?>
-                <div class="card-header text-center">Upload Document </div>
+                <div class="card-header text-center">Update Document </div>
                 <div class="card-body">
                     
                     <form action="<?= $_SERVER['PHP_SELF']; ?>" method="post" autocomplete="off" enctype="multipart/form-data">
@@ -100,5 +101,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </div>
-<?php
-include("../footer.php");
+<?php include("../footer.php"); ?>
