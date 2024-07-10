@@ -9,7 +9,7 @@ if (!isset($_SESSION['access_token'])) {
     exit();
 }
 
-
+if($_SESSION['role'] == 'editor'){
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    
     $document = $_POST['user_documents'] ?? '';
@@ -62,6 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Handle API request failure
         $errors['invalid'] = 'An error occurred. Please try again later.';
     }
+}
+}else{
+    header('Location:http://localhost/view-hiring/');
 }
 
 ?>

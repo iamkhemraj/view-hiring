@@ -64,7 +64,7 @@ if($_SESSION['role'] == 'editor'){
     }
   }
 }else{
-  header('Location: ' . $_SERVER['HTTP_REFERER']);
+  header('Location:http://localhost/view-hiring/');
 }
 ?>
 <div class="container">

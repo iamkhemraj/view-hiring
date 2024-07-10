@@ -6,14 +6,16 @@ if (!isset($_SESSION['access_token'])  ) {
 	header('Location: /view-hiring/index.php'); // Redirect to the profile page
 	exit();
 }
-
+if($_SESSION['role'] == 'editor'){
 $token        = $_SESSION['access_token'];
 $options      = ['http' => [ 'header' => "Authorization: Bearer $token\r\n", 'method' => 'GET', ],];
 $context      = stream_context_create($options);
 $result       = @file_get_contents( BASE_URL . '/user/ShowDocument', false, $context);
 $userDatas    = json_decode($result, true); // decode user data
 $documentData = isset($userDatas['response']) ? $userDatas['response'] : ''; 
-
+}else{
+  header('Location:http://localhost/view-hiring/');
+}
 ?>
 
 <?= isset($errors['user']) ? '<p style="color:#cd2322;margin:0px !important">' . $errors['user'] . '</p>' : ''; ?>
