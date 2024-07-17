@@ -108,9 +108,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
 
                         <script>
-                            function navigate() {
-                                window.location.href = 'http://localhost/view-hiring/index.php';
-                            }
+                           function navigate() {
+                                    window.location.href = '/view-hiring/index.php';
+                                }
                         </script>
                 </div>
             </div>

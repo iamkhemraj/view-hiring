@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <div class="form-group">
                             <input type="submit" value="submit" class="btn btn-primary form-control"></br>
-                            if you have an account <a href="http://localhost/view-hiring/login.php">login</a>
+                            if you have an account <a href="login.php">login</a>
                         </div>
                     </form>
                 </div>

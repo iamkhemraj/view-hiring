@@ -153,10 +153,10 @@ $errors['invalid'] = 'An error occurred. Please try again later.';
                         <a class="hover-link " style="cursor: pointer;" onclick="navigate()">Go to back</a>
                      </div>
                      <script>
-                        function navigate() {
-                        window.location.href = 'http://localhost/view-hiring/index.php';
+                         function navigate() {
+                           window.location.href = '/view-hiring/index.php';
                         }
-                     </script>
+                     </script> 
                   </form>
                </div>
             </div>

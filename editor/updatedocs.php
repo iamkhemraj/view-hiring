@@ -92,8 +92,8 @@ if($_SESSION['role'] == 'editor'){
 
                         <script>
                             function navigate() {
-                            window.location.href = 'http://localhost/view-hiring/index.php';
-                            }
+                                    window.location.href = '/view-hiring/index.php';
+                                }
                         </script>
                     </form>
                 </div>
